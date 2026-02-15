@@ -116,10 +116,13 @@ a {
     font-weight: 600;
     color: #f5f5f5;
     margin-bottom: 20px; /* Add margin to space out the subtitle */
+    line-height: 1.05;
 }
 
 .about-me-text {
-    margin: 20px 0; /* Add margin to space out the text */
+    margin: 20px 0;
+    line-height: 1.65;
+    color: #d9d9d9;
 }
 
 .about-me-text p {
@@ -206,9 +209,14 @@ ul li {
 }
 
 .services-list div h2 {
-    font-size: 30px;
+    font-size: 26px;
     font-weight: 500;
     margin-bottom: 15px;
+}
+
+.services-list div p {
+    line-height: 1.6;
+    font-size: 14px;
 }
 
 .services-list div a {
@@ -271,6 +279,7 @@ ul li {
     padding: 0 40px;
     text-align: center;
     font-size: 14px;
+    line-height: 1.55;
     transition: transform 0.3s;
     transform: translateY(100%);
 }
@@ -278,6 +287,7 @@ ul li {
 .layer h3 {
     font-weight: 500;
     margin-bottom: 20px;
+    font-size: 22px;
 }
 
 .layer a {
@@ -351,9 +361,19 @@ form .btn2:hover {
     transition: transform 0.3s;
 }
 
-social-icons a:hover {
+.social-icons a:hover {
     color: #cc5200;
     transform: translateY(-5px);
+}
+
+.contact-left a {
+    color: #f5f5f5;
+    text-decoration: underline;
+    text-underline-offset: 2px;
+}
+
+.contact-left a:hover {
+    color: #cc5200;
 }
 
 form {
@@ -435,6 +455,10 @@ body *:not(#overlay):not(#sideMenu) {
         padding-top: 10px;
     }
 
+    .sub-title {
+        font-size: 42px;
+    }
+
     .header-text {
         margin-top: 70%;
         font-size: 16px;
@@ -496,6 +520,10 @@ body *:not(#overlay):not(#sideMenu) {
 
     .contact-left {
         text-align: center;
+    }
+
+    .layer h3 {
+        font-size: 20px;
     }
 }
 
