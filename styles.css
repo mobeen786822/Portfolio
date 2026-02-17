@@ -335,7 +335,13 @@ form .btn2:hover {
 }
 
 .contact-right {
-    flex-basis: 60%;
+    flex-basis: 100%;
+    max-width: 760px;
+    margin: 0 auto;
+}
+
+.contact-right h1 {
+    text-align: center;
 }
 
 .contact-left p {
@@ -531,6 +537,7 @@ body *:not(#overlay):not(#sideMenu) {
     color: #61b752;
     margin-top: -40px;
     display: block;
+    text-align: center;
 }
 
 /* Change the highlight color */
