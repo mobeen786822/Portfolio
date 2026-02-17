@@ -420,6 +420,14 @@ form .btn2 {
     align-self: center; /* Center the button */
 }
 
+#contact .contact-right button.btn.btn2 {
+    background-color: var(--button-blue) !important;
+    border: 1px solid var(--button-blue) !important;
+    color: #ffffff !important;
+    -webkit-text-fill-color: #ffffff !important;
+    line-height: 1.2;
+}
+
 form input, form textarea {
     width: 100%;
     border: 0;
