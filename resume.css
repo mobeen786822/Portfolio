@@ -160,6 +160,16 @@ a {
     color: #d2d7e8;
 }
 
+.role-points {
+    margin: 0;
+    padding-left: 20px;
+}
+
+.role-points li {
+    color: #d2d7e8;
+    margin-bottom: 8px;
+}
+
 .resume-footer {
     padding: 24px 10%;
     background: #121520;
