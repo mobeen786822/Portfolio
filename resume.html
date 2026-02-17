@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Mobeen Khan | Resume</title>
+    <link rel="stylesheet" href="resume.css">
+    <link rel="icon" type="image/png" href="images/favicon.png">
+    <script src="https://kit.fontawesome.com/b115f2222f.js" crossorigin="anonymous"></script>
+</head>
+<body>
+    <header class="resume-header">
+        <nav class="resume-nav">
+            <a href="index.html" class="brand">Mobeen Khan</a>
+            <ul id="sideMenu">
+                <li><a href="index.html#header">Home</a></li>
+                <li><a href="projects.html">Projects</a></li>
+                <li><a href="images/Resume.pdf" download>Download PDF</a></li>
+                <i class="fa-solid fa-xmark" onclick="closeMenu()"></i>
+            </ul>
+            <i class="fa-solid fa-burger" onclick="openMenu()"></i>
+        </nav>
+        <div class="hero">
+            <p class="role">Graduate Software Engineer</p>
+            <h1>Mobeen Khan</h1>
+            <p class="summary">Software engineer focused on reliable web and mobile products, backend integrations, and production-support aligned workflows.</p>
+            <div class="hero-actions">
+                <a class="btn primary" href="images/Resume.pdf" download>Download Resume</a>
+                <a class="btn ghost" href="index.html#contact">Contact</a>
+            </div>
+        </div>
+    </header>
+
+    <main class="resume-main">
+        <section class="resume-section">
+            <h2>Core Skills</h2>
+            <ul class="chip-list">
+                <li>React</li>
+                <li>TypeScript</li>
+                <li>JavaScript</li>
+                <li>React Native</li>
+                <li>Next.js</li>
+                <li>Firebase</li>
+                <li>REST APIs</li>
+                <li>SQL and NoSQL</li>
+                <li>Jest</li>
+                <li>Production Support Workflows</li>
+            </ul>
+        </section>
+
+        <section class="resume-section">
+            <h2>Experience Highlights</h2>
+            <div class="timeline-item">
+                <h3>Volunteer Developer - Catch a Drive</h3>
+                <p>Contributed to frontend and backend feature delivery, responsive interface updates, and API-enabled user workflows.</p>
+            </div>
+            <div class="timeline-item">
+                <h3>Project Delivery - Production Support Incident Console</h3>
+                <p>Designed and built triage-focused incident workflows including SLA awareness, runbook mapping, and root-cause capture.</p>
+            </div>
+            <div class="timeline-item">
+                <h3>Project Delivery - Job Application Assistant</h3>
+                <p>Built a private application that tailors resume and cover letter content against job descriptions with fit and gap summaries.</p>
+            </div>
+        </section>
+
+        <section class="resume-section">
+            <h2>Education</h2>
+            <div class="timeline-item">
+                <h3>Master of Computer Science (Cybersecurity)</h3>
+                <p>University of Wollongong | 2025 - Present</p>
+            </div>
+            <div class="timeline-item">
+                <h3>Bachelor of Computer Science</h3>
+                <p>University of Wollongong | 2021 - 2024</p>
+                <p>Major in Software Engineering and Cybersecurity</p>
+            </div>
+            <div class="timeline-item">
+                <h3>AWS Academy Cloud Foundations</h3>
+                <p>AWS Academy Graduate</p>
+            </div>
+        </section>
+    </main>
+
+    <footer class="resume-footer">
+        <p>mobeenk89@gmail.com | github.com/mobeen786822 | linkedin.com/in/mobeen-khan-6b3340197</p>
+    </footer>
+
+    <script>
+        var sideMenu = document.getElementById("sideMenu");
+        function openMenu() {
+            sideMenu.style.right = "0";
+        }
+        function closeMenu() {
+            sideMenu.style.right = "-240px";
+        }
+    </script>
+</body>
+</html>
