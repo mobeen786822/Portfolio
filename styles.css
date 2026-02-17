@@ -47,6 +47,12 @@ nav {
     flex-wrap: wrap;
 }
 
+#header nav,
+#projects nav {
+    margin-left: calc(50% - 50vw + 12px);
+    margin-right: calc(50% - 50vw + 12px);
+}
+
 .logo {
     width: 140px;
 }
