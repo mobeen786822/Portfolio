@@ -411,7 +411,6 @@ form .btn2 {
     background: var(--button-blue);
     color: #ffffff !important;
     -webkit-text-fill-color: #ffffff;
-    font-weight: 600;
     padding: 14px 60px;
     font-size: 18px;
     margin-top: 20px;
