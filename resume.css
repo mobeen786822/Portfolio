@@ -156,6 +156,16 @@ a {
     margin-bottom: 6px;
 }
 
+.timeline-item h3 a {
+    color: #ffb180;
+    text-decoration: underline;
+    text-underline-offset: 3px;
+}
+
+.timeline-item h3 a:hover {
+    color: #ffd8bf;
+}
+
 .timeline-item p {
     color: #d2d7e8;
 }
