@@ -1,22 +1,19 @@
 * {
     margin: 0;
     padding: 0;
-    font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+    font-family: 'Poppins', sans-serif;
     box-sizing: border-box;
 }
 
 :root {
     --bg: #0f1116;
     --surface: #181b24;
-    --surface-border: #272c3a;
-    --surface-2: #232838;
-    --footer-bg: #121520;
-    --footer-border: #202538;
     --text: #f5f5f5;
     --muted: #d2d7e8;
     --accent: #ffb180;
-    --accent-strong: #2f63e0;
+    --highlight: #2f63e0;
 }
+
 html {
     scroll-behavior: smooth;
 }
@@ -29,14 +26,12 @@ body {
 #header {
     width: 100%;
     height: 100vh;
-    background-image: linear-gradient(rgba(15, 17, 22, 0.72), rgba(15, 17, 22, 0.72)), url(images/background.png);
+    background-image: url(images/background.png);
     background-size: cover;
     background-position: center;
 }
 
 .container {
-    max-width: 1200px;
-    margin: 0 auto;
     padding: 10px 10%;
 }
 
@@ -45,12 +40,6 @@ nav {
     justify-content: space-between;
     align-items: center;
     flex-wrap: wrap;
-}
-
-#header nav,
-#projects nav {
-    margin-left: calc(50% - 50vw + 28px);
-    margin-right: calc(50% - 50vw + 28px);
 }
 
 .logo {
@@ -66,8 +55,7 @@ nav ul li {
 nav ul li a {
     color: var(--text); /* Link color */
     text-decoration: none;
-    font-size: 1rem;
-    font-weight: 500;
+    font-size: 18px;
     position: relative;
 }
 
@@ -75,7 +63,7 @@ nav ul li a::after {
     content: '';
     width: 0;
     height: 3px;
-    background: var(--accent); /* Highlight color */
+    background: var(--highlight); /* Highlight color */
     position: absolute;
     left: 0;
     bottom: -6px;
@@ -133,23 +121,11 @@ a {
 }
 
 .sub-title {
-    font-size: clamp(2.2rem, 4vw, 3.6rem);
+    font-size: 60px;
     font-weight: 600;
     color: var(--text);
     margin-bottom: 20px; /* Add margin to space out the subtitle */
     line-height: 1.05;
-}
-
-#about .container,
-#services .container,
-#portfolio .container,
-#contact .container,
-#projects .container {
-    background: var(--surface);
-    border: 1px solid var(--surface-border);
-    border-radius: 12px;
-    padding-top: 40px;
-    padding-bottom: 40px;
 }
 
 .about-me-text {
@@ -186,7 +162,7 @@ ul li {
     content: '';
     width: 0;
     height: 3px;
-    background-color: var(--accent);
+    background-color: var(--highlight);
     position: absolute;
     left: 0;
     bottom: -8px;
@@ -217,7 +193,7 @@ ul li {
 
 /* Services */
 #services {
-    padding: 30px 0 0;
+    padding: 30px 0;
 }
 
 .services-list {
@@ -229,7 +205,6 @@ ul li {
 
 .services-list div {
     background: var(--surface);
-    border: 1px solid var(--surface-border);
     padding: 40px;
     font-size: 13px;
     font-weight: 300;
@@ -262,16 +237,12 @@ ul li {
 }
 
 .services-list div:hover {
-    background: linear-gradient(145deg, #1f2f7a, var(--accent-strong));
+    background-color: var(--highlight);
     transform: translateY(-10px);
 }
 
 /* Portfolio */
 #portfolio {
-    padding: 50px 0 0;
-}
-
-#projects {
     padding: 50px 0;
 }
 
@@ -283,30 +254,29 @@ ul li {
 }
 
 .work {
-    border-radius: 12px;
+    border-radius: 10px;
     position: relative;
     overflow: hidden;
     height: 300px; /* Set a fixed height for uniformity */
     display: flex;
     align-items: center; /* Center the image vertically */
     justify-content: center; /* Center the image horizontally */
-    background-color: var(--surface); /* Background color to fill any gaps */
-    border: 1px solid var(--surface-border);
+    background-color: var(--bg); /* Background color to fill any gaps */
 }
 
 .work img {
     width: 100%;
     height: 100%; /* Ensure images cover the container */
     object-fit: contain; /* Ensure the whole image fits inside the container */
-    border-radius: 12px;
+    border-radius: 10px;
     transition: transform 0.3s;
 }
 
 .layer {
     width: 100%;
     height: 100%;
-    background: linear-gradient(rgba(15, 17, 22, 0.22), var(--accent-strong));
-    border-radius: 12px;
+    background: linear-gradient(rgba(0, 0, 0, 0.6), var(--highlight));
+    border-radius: 10px;
     position: absolute;
     left: 0;
     bottom: 0;
@@ -331,7 +301,7 @@ ul li {
 
 .layer a {
     margin-top: 20px;
-    color: #1f2f7a;
+    color: var(--highlight);
     text-decoration: none;
     font-size: 18px;
     line-height: 60px;
@@ -354,19 +324,18 @@ ul li {
     margin: 50px auto;
     width: fit-content;
     border: 1px solid var(--accent);
-    padding: 12px 22px;
-    border-radius: 8px;
+    padding: 14px 50px;
+    border-radius: 6px;
     text-decoration: none;
-    color: var(--text);
-    font-weight: 600;
-    transition: background 0.2s ease, color 0.2s ease;
+    color: white;
+    transition: background 0.3s, color 0.3s;
 }
 
 .btn:hover,
 .btn.btn2:hover,
 form .btn2:hover {
-    background: var(--accent);
-    color: var(--bg); /* Ensure the text color changes to a visible color if needed */
+    background: var(--highlight);
+    color: #ffffff; /* Ensure the text color changes to a visible color if needed */
 }
 
 /* Contact */
@@ -412,7 +381,7 @@ form .btn2:hover {
 }
 
 .social-icons a:hover {
-    color: var(--accent);
+    color: var(--highlight);
     transform: translateY(-5px);
 }
 
@@ -423,7 +392,7 @@ form .btn2:hover {
 }
 
 .contact-left a:hover {
-    color: var(--accent);
+    color: var(--highlight);
 }
 
 form {
@@ -451,27 +420,21 @@ form input, form textarea {
     width: 100%;
     border: 0;
     outline: none;
-    background: var(--surface-2);
-    border: 1px solid var(--surface-border);
+    background: var(--surface);
     padding: 15px;
     margin: 15px 0;
     color: var(--text);
     font-size: 18px;
-    border-radius: 8px;
+    border-radius: 6px;
 }
 
 .copyright {
     width: 100%;
     text-align: center;
     padding: 25px 0;
-    background: var(--footer-bg);
-    border-top: 1px solid var(--footer-border);
+    background: var(--surface);
     font-weight: 300;
     margin-top: 20px;
-}
-
-.copyright p {
-    color: #bfc7dc;
 }
 
 nav .fa-solid {
@@ -485,7 +448,7 @@ nav .fa-solid {
     left: 0;
     width: 100%;
     height: 100%;
-    background-color: rgba(15, 17, 22, 0.6);
+    background-color: rgba(0, 0, 0, 0.5);
     z-index: 10;
     display: none;
 }
@@ -529,13 +492,13 @@ body *:not(#overlay):not(#sideMenu) {
     }
 
     nav ul {
-        background: #1f2f7a;
+        background: var(--highlight);
         position: fixed;
         top: 0;
-        right: -240px;
-        width: 240px;
+        right: -200px;
+        width: 200px;
         height: 100vh;
-        padding-top: 72px;
+        padding-top: 50px;
         z-index: 2;
         transition: right 0.3s;
     }
@@ -594,8 +557,8 @@ body *:not(#overlay):not(#sideMenu) {
 
 /* Change the highlight color */
 ::selection {
-    background-color: var(--accent); /* Highlight color */
-    color: var(--bg); /* Text color */
+    background-color: var(--highlight); /* Highlight color */
+    color: #ffffff; /* Text color */
 }
 
 .contact-left p:hover {
@@ -635,5 +598,3 @@ body *:not(#overlay):not(#sideMenu) {
     height: 270px;
     border: none; /* Ensure no borders are around the iframe */
 }
-
-
