@@ -170,6 +170,20 @@ a {
     color: #d2d7e8;
 }
 
+.repo-subheading {
+    margin-bottom: 10px;
+}
+
+.repo-subheading a {
+    color: #ffb180;
+    text-decoration: underline;
+    text-underline-offset: 3px;
+}
+
+.repo-subheading a:hover {
+    color: #ffd8bf;
+}
+
 .role-points {
     margin: 0;
     padding-left: 0;
