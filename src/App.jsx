@@ -182,6 +182,10 @@ function Hero() {
           <p className="mt-4 max-w-3xl text-base leading-relaxed text-slate-300 sm:text-lg">
             Building and shipping secure, production-ready products from full-stack web apps to a live cybersecurity platform.
           </p>
+          <p className="mt-3 max-w-3xl text-sm leading-relaxed text-slate-300 sm:text-base">
+            I care about making cybersecurity practical, not intimidating. Building Bunkerify came from seeing how many small businesses and founders wanted clear security guidance
+            but had no simple starting point. I'm driven by turning complex risk into tools people can actually use.
+          </p>
           <div className="mt-6 grid gap-2 sm:flex sm:flex-wrap sm:gap-3">
             {contact.map((item) => (
               <a
