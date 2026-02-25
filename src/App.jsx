@@ -56,6 +56,7 @@ const projects = [
     title: "Production Support Incident Console",
     category: "Operations Simulation",
     repo: "https://github.com/mobeen786822/Production-Support-Incident-Console",
+    website: "https://incident-console-ui.onrender.com/",
     points: [
       "Built a web-based incident management console to simulate production support workflows end-to-end.",
       "Implemented incident lifecycle tracking with severity, status transitions, ownership, and event timelines.",
@@ -122,6 +123,21 @@ const skills = [
   "C++",
 ];
 
+const cybersecurityTools = [
+  "Kali Linux",
+  "Nmap",
+  "Metasploit",
+  "Wireshark",
+  "Burp Suite",
+  "Penetration Testing",
+  "Vulnerability Assessment",
+  "Incident Response",
+  "Threat Intelligence",
+  "Network Segmentation",
+  "Log Analysis",
+  "Firewall Configuration",
+];
+
 function Panel({ title, icon, children, className = "" }) {
   return (
     <section className={`rounded-3xl border border-brand-700/60 bg-slate-950/70 p-4 shadow-soft backdrop-blur-sm sm:p-6 ${className}`}>
@@ -134,7 +150,7 @@ function Panel({ title, icon, children, className = "" }) {
   );
 }
 
-function Card({ title, subtitle, points, link, linkText = "Visit", note }) {
+function Card({ title, subtitle, points, link, linkText = "Visit", links = [], note }) {
   return (
     <article className="rounded-2xl border border-slate-700 bg-slate-900/80 p-3.5 transition hover:-translate-y-1 hover:border-accent-300 sm:p-4">
       <h3 className="font-heading text-base text-slate-100 sm:text-lg">{title}</h3>
@@ -143,6 +159,15 @@ function Card({ title, subtitle, points, link, linkText = "Visit", note }) {
         <a className="mt-2 inline-flex items-center text-sm font-semibold text-brand-300 hover:text-accent-300" href={link} target="_blank" rel="noreferrer">
           ↗ {linkText}
         </a>
+      ) : null}
+      {links.length > 0 ? (
+        <div className="mt-2 flex flex-wrap gap-3">
+          {links.map((item) => (
+            <a key={`${title}-${item.href}-${item.label}`} className="inline-flex items-center text-sm font-semibold text-brand-300 hover:text-accent-300" href={item.href} target="_blank" rel="noreferrer">
+              ↗ {item.label}
+            </a>
+          ))}
+        </div>
       ) : null}
       {note ? <p className="mt-2 text-sm text-slate-400">{note}</p> : null}
       {points ? (
@@ -244,6 +269,16 @@ function OverviewPage() {
           ))}
         </Panel>
 
+        <Panel title="Cybersecurity Tools" icon={"\u{1F6E1}\u{FE0F}"} className="lg:col-span-12">
+          <ul className="flex flex-wrap gap-1.5 sm:gap-2">
+            {cybersecurityTools.map((tool) => (
+              <li key={tool} className="rounded-full border border-brand-700/60 bg-slate-900 px-2.5 py-1 text-xs font-semibold text-brand-100 sm:px-3 sm:py-1.5 sm:text-sm">
+                {tool}
+              </li>
+            ))}
+          </ul>
+        </Panel>
+
         <Panel title="Experience" icon={"\u{1F91D}"} className="lg:col-span-12">
           <div className="grid gap-4 md:grid-cols-2">
             {volunteer.map((item) => (
@@ -268,8 +303,10 @@ function ProjectsPage() {
                 key={item.title}
                 title={item.title}
                 subtitle={item.category}
-                link={item.repo || item.website}
-                linkText={item.repo ? "GitHub" : "Website"}
+                links={[
+                  ...(item.repo ? [{ label: "GitHub", href: item.repo }] : []),
+                  ...(item.website ? [{ label: "Website", href: item.website }] : []),
+                ]}
                 note={item.repoNote}
                 points={item.points}
               />
