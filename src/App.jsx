@@ -59,10 +59,13 @@ const projects = [
   {
     title: "Cancer Awareness Mobile App",
     category: "Mobile App",
+    repoNote: "Private repo - available on request.",
     points: [
       "Built a cross-platform mobile app using React Native and TypeScript.",
       "Implemented Firebase integration for authentication, cloud data storage, and messaging workflows.",
       "Added geolocation and media upload capabilities with structured in-app navigation.",
+      "Built educational and awareness-focused user journeys with clear call-to-action screens and reminders.",
+      "Focused on privacy-conscious data handling for sensitive health-related user interactions.",
     ],
   },
 ];
@@ -124,7 +127,7 @@ function Panel({ title, icon, children, className = "" }) {
   );
 }
 
-function Card({ title, subtitle, points, link, linkText = "Visit" }) {
+function Card({ title, subtitle, points, link, linkText = "Visit", note }) {
   return (
     <article className="rounded-2xl border border-slate-700 bg-slate-900/80 p-3.5 transition hover:-translate-y-1 hover:border-accent-300 sm:p-4">
       <h3 className="font-heading text-base text-slate-100 sm:text-lg">{title}</h3>
@@ -134,6 +137,7 @@ function Card({ title, subtitle, points, link, linkText = "Visit" }) {
           ↗ {linkText}
         </a>
       ) : null}
+      {note ? <p className="mt-2 text-sm text-slate-400">{note}</p> : null}
       {points ? (
         <ul className="mt-3 list-disc space-y-1.5 pl-5 text-slate-300">
           {points.map((point) => (
@@ -249,6 +253,7 @@ function ProjectsPage() {
                 subtitle={item.category}
                 link={item.repo || item.website}
                 linkText={item.repo ? "GitHub" : "Website"}
+                note={item.repoNote}
                 points={item.points}
               />
             ))}
@@ -259,6 +264,10 @@ function ProjectsPage() {
   );
 }
 
+function Footer() {
+  return <footer className="mt-8 border-t border-slate-800 pt-4 text-center text-sm text-slate-400">© {new Date().getFullYear()} Mobeen Khan</footer>;
+}
+
 export default function App() {
   return (
     <div className="mx-auto w-full max-w-6xl px-3 py-6 sm:px-6 sm:py-10 lg:py-14">
@@ -267,6 +276,7 @@ export default function App() {
         <Route path="/" element={<OverviewPage />} />
         <Route path="/projects" element={<ProjectsPage />} />
       </Routes>
+      <Footer />
     </div>
   );
 }
