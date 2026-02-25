@@ -34,11 +34,11 @@ const projects = [
     category: "Cybersecurity Platform",
     website: "https://www.bunkerify.com",
     points: [
-      "Built Bunkerify, a free cyber health check platform based on the ACSC Essential Eight maturity model.",
-      "Designed and implemented a 19-question assessment with automated scoring and category-level risk breakdowns.",
-      "Delivered HTML email reports with clear CTAs, improving lead follow-up and conversion.",
-      "Integrated lead capture + booking workflow (Calendly) to turn assessments into consultations.",
-      "Deployed a live marketing funnel (landing page + LinkedIn launch assets) to drive inbound leads.",
+      "Built and deployed Bunkerify on Vercel using Next.js, Supabase (PostgreSQL + auth), and SendGrid for transactional email delivery.",
+      "Designed a custom scoring engine from scratch mapping 19 assessment questions to ACSC Essential Eight categories with weighted Maturity Level 0-3 calculations per category.",
+      "Implemented automated HTML email reports triggered on assessment completion, delivering personalised risk breakdowns and CTAs.",
+      "Integrated Calendly booking workflow to convert assessment completions into consultations.",
+      "Deployed a live marketing funnel with a landing page and LinkedIn launch assets to drive inbound leads.",
     ],
   },
   {
