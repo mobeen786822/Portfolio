@@ -23,6 +23,18 @@ const education = [
 
 const projects = [
   {
+    title: "Bunkerify",
+    category: "Cybersecurity Platform",
+    website: "https://www.bunkerify.com",
+    points: [
+      "Built Bunkerify, a free cyber health check platform based on the ACSC Essential Eight maturity model.",
+      "Designed and implemented a 19-question assessment with automated scoring and category-level risk breakdowns.",
+      "Delivered HTML email reports with clear CTAs, improving lead follow-up and conversion.",
+      "Integrated lead capture + booking workflow (Calendly) to turn assessments into consultations.",
+      "Deployed a live marketing funnel (landing page + LinkedIn launch assets) to drive inbound leads.",
+    ],
+  },
+  {
     title: "Job Application Assistant",
     category: "Web App",
     repo: "https://github.com/mobeen786822/job-application-assistant",
@@ -45,25 +57,13 @@ const projects = [
     ],
   },
   {
-    title: "Cancer Awareness Mobile App (321_Project_CancerAwareness1)",
+    title: "Cancer Awareness Mobile App",
     category: "Mobile App",
     points: [
       "University coursework project.",
       "Built a cross-platform mobile app using React Native and TypeScript.",
       "Implemented Firebase integration for authentication, cloud data storage, and messaging workflows.",
       "Added geolocation and media upload capabilities with structured in-app navigation.",
-    ],
-  },
-  {
-    title: "Bunkerify",
-    category: "Cybersecurity Platform",
-    website: "https://www.bunkerify.com",
-    points: [
-      "Built Bunkerify, a free cyber health check platform based on the ACSC Essential Eight maturity model.",
-      "Designed and implemented a 19-question assessment with automated scoring and category-level risk breakdowns.",
-      "Delivered HTML email reports with clear CTAs, improving lead follow-up and conversion.",
-      "Integrated lead capture + booking workflow (Calendly) to turn assessments into consultations.",
-      "Deployed a live marketing funnel (landing page + LinkedIn launch assets) to drive inbound leads.",
     ],
   },
 ];
@@ -172,25 +172,32 @@ function Hero() {
     <header className="relative overflow-hidden rounded-3xl border border-brand-700/70 bg-gradient-to-r from-slate-950 via-slate-900 to-brand-900 p-5 text-white shadow-soft sm:p-8 lg:p-10">
       <div className="absolute -right-14 -top-14 h-48 w-48 rounded-full bg-accent-500/20 blur-3xl" aria-hidden="true" />
       <div className="absolute -left-14 bottom-0 h-44 w-44 rounded-full bg-brand-300/30 blur-3xl" aria-hidden="true" />
-      <div className="relative">
-        <p className="font-heading text-xs uppercase tracking-[0.18em] text-brand-100 sm:text-sm sm:tracking-[0.2em]">Cybersecurity-Focused Software Engineer</p>
-        <h1 className="mt-3 font-heading text-3xl leading-tight sm:text-5xl">Mobeen Khan</h1>
-        <p className="mt-4 max-w-3xl text-base leading-relaxed text-slate-300 sm:text-lg">
-          Building secure, user-focused web experiences with React, TypeScript, and resilient system design.
-        </p>
-        <div className="mt-6 grid gap-2 sm:flex sm:flex-wrap sm:gap-3">
-          {contact.map((item) => (
-            <a
-              key={item.display}
-              href={item.href}
-              target={item.href.startsWith("http") ? "_blank" : undefined}
-              rel={item.href.startsWith("http") ? "noreferrer" : undefined}
-              className="rounded-full border border-brand-300/40 bg-slate-900/40 px-4 py-2.5 text-center text-sm font-semibold text-cyan-100 transition hover:border-accent-300 hover:bg-accent-500/20 hover:text-white sm:text-left"
-            >
-              {item.display.startsWith("Email:") ? item.display : item.label}
-            </a>
-          ))}
+      <div className="relative flex flex-col gap-6 md:flex-row md:items-center md:justify-between">
+        <div>
+          <p className="font-heading text-xs uppercase tracking-[0.18em] text-brand-100 sm:text-sm sm:tracking-[0.2em]">Cybersecurity-Focused Software Engineer</p>
+          <h1 className="mt-3 font-heading text-3xl leading-tight sm:text-5xl">Mobeen Khan</h1>
+          <p className="mt-4 max-w-3xl text-base leading-relaxed text-slate-300 sm:text-lg">
+            Building and shipping secure, production-ready products from full-stack web apps to a live cybersecurity platform.
+          </p>
+          <div className="mt-6 grid gap-2 sm:flex sm:flex-wrap sm:gap-3">
+            {contact.map((item) => (
+              <a
+                key={item.display}
+                href={item.href}
+                target={item.href.startsWith("http") ? "_blank" : undefined}
+                rel={item.href.startsWith("http") ? "noreferrer" : undefined}
+                className="rounded-full border border-brand-300/40 bg-slate-900/40 px-4 py-2.5 text-center text-sm font-semibold text-cyan-100 transition hover:border-accent-300 hover:bg-accent-500/20 hover:text-white sm:text-left"
+              >
+                {item.display.startsWith("Email:") ? item.display : item.label}
+              </a>
+            ))}
+          </div>
         </div>
+        <img
+          src="/images/user.png"
+          alt="Portrait of Mobeen Khan"
+          className="h-36 w-36 self-start rounded-2xl border border-brand-300/50 object-cover shadow-lg md:h-44 md:w-44 md:self-auto"
+        />
       </div>
     </header>
   );
@@ -217,7 +224,7 @@ function OverviewPage() {
           </ul>
         </Panel>
 
-        <Panel title="Volunteer Experience" icon={"\u{1F91D}"} className="lg:col-span-12">
+        <Panel title="Experience" icon={"\u{1F91D}"} className="lg:col-span-12">
           <div className="grid gap-4 md:grid-cols-2">
             {volunteer.map((item) => (
               <Card key={item.title} title={item.title} subtitle={`${item.org} | ${item.dates}`} points={item.points} />
