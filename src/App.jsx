@@ -60,7 +60,6 @@ const projects = [
     title: "Cancer Awareness Mobile App",
     category: "Mobile App",
     points: [
-      "University coursework project.",
       "Built a cross-platform mobile app using React Native and TypeScript.",
       "Implemented Firebase integration for authentication, cloud data storage, and messaging workflows.",
       "Added geolocation and media upload capabilities with structured in-app navigation.",
@@ -74,9 +73,9 @@ const volunteer = [
     org: "Catch a Drive",
     dates: "Nov 2025 - Jan 2026",
     points: [
-      "Contributed to both front-end and back-end development of the Catch a Drive web platform.",
-      "Implemented responsive and user-centric UI components to enhance usability and visual appeal.",
-      "Developed and integrated back-end features to support dynamic content, user interactions, and API workflows.",
+      "Delivered front-end and back-end features for the Catch a Drive platform across booking and user-flow pages.",
+      "Built responsive UI components for mobile and desktop to improve navigation clarity and completion flow.",
+      "Integrated API-backed functionality for dynamic content and user actions, reducing manual content handling.",
     ],
   },
   {
@@ -84,9 +83,9 @@ const volunteer = [
     org: "Hentley",
     dates: "Jan 2018 - Mar 2019",
     points: [
-      "Implemented custom front-end features for an eCommerce website, focusing on clean layout, responsiveness, and intuitive user flows.",
-      "Supported server-side functionality to enable product displays, transactional workflows, and content updates.",
-      "Enhanced site structure and styling to improve mobile usability and visual consistency across devices.",
+      "Implemented custom storefront components to improve product discovery and shopper navigation.",
+      "Supported server-side functionality for product rendering, checkout-adjacent workflows, and content updates.",
+      "Refined responsive layouts and styling to maintain consistent UX across mobile, tablet, and desktop.",
     ],
   },
 ];
@@ -196,7 +195,7 @@ function Hero() {
         <img
           src="/images/user.png"
           alt="Portrait of Mobeen Khan"
-          className="h-36 w-36 self-start rounded-2xl border border-brand-300/50 object-cover shadow-lg md:h-44 md:w-44 md:self-auto"
+          className="order-first h-36 w-36 self-center rounded-2xl border border-brand-300/50 object-cover shadow-lg md:order-none md:h-44 md:w-44 md:self-auto"
         />
       </div>
     </header>
