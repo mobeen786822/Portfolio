@@ -21,6 +21,13 @@ const education = [
   },
 ];
 
+const certifications = [
+  {
+    title: "AWS Academy Cloud Foundations",
+    issuer: "AWS Academy",
+  },
+];
+
 const projects = [
   {
     title: "Bunkerify",
@@ -229,6 +236,12 @@ function OverviewPage() {
               </li>
             ))}
           </ul>
+        </Panel>
+
+        <Panel title="Certifications" icon={"\u{1F3C5}"} className="lg:col-span-12">
+          {certifications.map((item) => (
+            <Card key={item.title} title={item.title} subtitle={item.issuer} />
+          ))}
         </Panel>
 
         <Panel title="Experience" icon={"\u{1F91D}"} className="lg:col-span-12">
