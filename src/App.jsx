@@ -65,7 +65,7 @@ const projects = [
       "Added SLA-aware monitoring with breach indicators to support prioritisation and response quality.",
       "Implemented runbook and root-cause analysis capture to improve incident resolution consistency.",
       "Implemented a full-stack security pipeline across Python (Bandit, pip-audit) and JavaScript (npm audit, Gitleaks).",
-      "Discovered 8 CVEs in backend dependencies and triaged remediation paths.",
+      "Discovered and resolved 8 CVEs in backend dependencies through targeted remediation and dependency upgrades.",
       "Replaced python-jose with PyJWT due to an unresolvable vulnerability chain and migrated the authentication implementation.",
       "Resolved a high-severity frontend vulnerability by upgrading affected dependencies.",
     ],
