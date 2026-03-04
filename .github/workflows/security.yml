@@ -1,0 +1,50 @@
+﻿name: Security Scan
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+    branches: [main]
+
+jobs:
+  security:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: 20
+          cache: npm
+
+      - name: Install dependencies
+        run: npm ci
+
+      - name: Run Gitleaks
+        id: gitleaks
+        uses: gitleaks/gitleaks-action@v2
+
+      - name: Run npm audit (high+ severity)
+        id: npm_audit
+        run: npm audit --audit-level=high
+
+      - name: Security summary
+        if: always()
+        run: |
+          echo "## Security Scan Summary" >> "$GITHUB_STEP_SUMMARY"
+          echo "" >> "$GITHUB_STEP_SUMMARY"
+          echo "| Scan | Result |" >> "$GITHUB_STEP_SUMMARY"
+          echo "| --- | --- |" >> "$GITHUB_STEP_SUMMARY"
+          if [ "${{ steps.gitleaks.outcome }}" = "success" ]; then
+            echo "| Gitleaks | PASS |" >> "$GITHUB_STEP_SUMMARY"
+          else
+            echo "| Gitleaks | FAIL |" >> "$GITHUB_STEP_SUMMARY"
+          fi
+          if [ "${{ steps.npm_audit.outcome }}" = "success" ]; then
+            echo "| npm audit (high+) | PASS |" >> "$GITHUB_STEP_SUMMARY"
+          else
+            echo "| npm audit (high+) | FAIL |" >> "$GITHUB_STEP_SUMMARY"
+          fi
