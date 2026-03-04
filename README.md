@@ -14,6 +14,8 @@ This project uses **React**, **Vite**, and **Tailwind CSS**. React gives me a cl
 
 ## Run Locally
 
+Use Node.js `20.19+` (or `22.12+`) before installing dependencies.
+
 ```bash
 npm install
 npm run dev
@@ -28,4 +30,4 @@ npm run preview
 
 ## Security
 
-The repository includes a GitHub Actions security workflow that runs on pushes and pull requests to `main`. It performs secret scanning with **Gitleaks** and dependency vulnerability scanning with **npm audit** (configured to fail on high-severity issues).
+The repository includes a GitHub Actions security workflow that runs on pushes and pull requests to `main`. It performs secret scanning with **Gitleaks** and dependency vulnerability scanning with **npm audit** (configured to fail on high-severity issues). A high-severity dependency vulnerability was identified by this pipeline and resolved using `npm audit fix`.
