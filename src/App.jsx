@@ -50,6 +50,8 @@ const projects = [
       "Implemented OpenAI-powered content tailoring with strict no-fabrication rules.",
       "Added private access via VPN-only deployment (Tailscale) on a cloud VM.",
       "Added UI preview, download actions, and loading feedback.",
+      "Built a GitHub Actions CI/CD security pipeline using Bandit, Semgrep, Gitleaks, and pip-audit.",
+      "Identified and resolved a medium-severity Bandit finding related to an interface binding vulnerability.",
     ],
   },
   {
@@ -62,6 +64,10 @@ const projects = [
       "Implemented incident lifecycle tracking with severity, status transitions, ownership, and event timelines.",
       "Added SLA-aware monitoring with breach indicators to support prioritisation and response quality.",
       "Implemented runbook and root-cause analysis capture to improve incident resolution consistency.",
+      "Implemented a full-stack security pipeline across Python (Bandit, pip-audit) and JavaScript (npm audit, Gitleaks).",
+      "Discovered 8 CVEs in backend dependencies and triaged remediation paths.",
+      "Replaced python-jose with PyJWT due to an unresolvable vulnerability chain and migrated the authentication implementation.",
+      "Resolved a high-severity frontend vulnerability by upgrading affected dependencies.",
     ],
   },
   {
@@ -101,26 +107,35 @@ const volunteer = [
   },
 ];
 
-const skills = [
-  "React",
-  "TypeScript",
-  "Vite",
-  "Tailwind CSS",
-  "React Native",
-  "Next.js",
-  "JavaScript",
-  "Node.js",
-  "Firebase",
-  "REST API Integration",
-  "Jest",
-  "React Testing Library",
-  "Cybersecurity",
-  "Networking",
-  "SQL",
-  "NoSQL",
-  "Python",
-  "Java",
-  "C++",
+const skillCategories = [
+  {
+    name: "Core Engineering",
+    items: [
+      "React",
+      "TypeScript",
+      "Vite",
+      "Tailwind CSS",
+      "React Native",
+      "Next.js",
+      "JavaScript",
+      "Node.js",
+      "Firebase",
+      "REST API Integration",
+      "Jest",
+      "React Testing Library",
+      "Cybersecurity",
+      "Networking",
+      "SQL",
+      "NoSQL",
+      "Python",
+      "Java",
+      "C++",
+    ],
+  },
+  {
+    name: "DevSecOps",
+    items: ["GitHub Actions", "Bandit", "Semgrep", "Gitleaks", "pip-audit", "npm audit", "SAST", "dependency scanning", "secrets detection"],
+  },
 ];
 
 const cybersecurityTools = [
@@ -254,13 +269,20 @@ function OverviewPage() {
         </Panel>
 
         <Panel title="Skills" icon={"\u{1F6E0}\u{FE0F}"} className="lg:col-span-7">
-          <ul className="flex flex-wrap gap-1.5 sm:gap-2">
-            {skills.map((skill) => (
-              <li key={skill} className="rounded-full border border-brand-700/60 bg-slate-900 px-2.5 py-1 text-xs font-semibold text-brand-100 sm:px-3 sm:py-1.5 sm:text-sm">
-                {skill}
-              </li>
+          <div className="space-y-4">
+            {skillCategories.map((category) => (
+              <div key={category.name}>
+                <h3 className="text-sm font-semibold uppercase tracking-wide text-slate-300">{category.name}</h3>
+                <ul className="mt-2 flex flex-wrap gap-1.5 sm:gap-2">
+                  {category.items.map((skill) => (
+                    <li key={`${category.name}-${skill}`} className="rounded-full border border-brand-700/60 bg-slate-900 px-2.5 py-1 text-xs font-semibold text-brand-100 sm:px-3 sm:py-1.5 sm:text-sm">
+                      {skill}
+                    </li>
+                  ))}
+                </ul>
+              </div>
             ))}
-          </ul>
+          </div>
         </Panel>
 
         <Panel title="Certifications" icon={"\u{1F3C5}"} className="lg:col-span-12">
