@@ -30,4 +30,6 @@ npm run preview
 
 ## Security
 
-The repository includes a GitHub Actions security workflow that runs on pushes and pull requests to `main`. It performs secret scanning with **Gitleaks** and dependency vulnerability scanning with **npm audit** (configured to fail on high-severity issues). A high-severity dependency vulnerability was identified by this pipeline and resolved using `npm audit fix`.
+The repository includes a GitHub Actions security workflow that runs on pushes and pull requests to `main`. It performs secret scanning with **Gitleaks** and dependency vulnerability scanning with **npm audit** (configured to fail on high-severity issues).
+
+During a recent pipeline run, `npm audit` flagged a high-severity dependency issue. It was remediated by applying `npm audit fix`, then upgrading the build toolchain to `vite@7.3.1` and `@vitejs/plugin-react@5.1.4` to clear remaining transitive risk. The current audit result is `0 vulnerabilities`.
