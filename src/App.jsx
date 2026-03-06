@@ -66,6 +66,8 @@ const projects = [
     points: [
       "Benchmarked Llama 3.2, Phi-3 Mini, and Gemma 2 running entirely offline via Ollama on a CPU-only Ubuntu VM across 4 task types — documenting speed, reliability, and quality tradeoffs for local inference.",
       "Identified task-specific failure modes including timeouts that would not surface in quality-only evaluations.",
+      "Designed a Python benchmarking script evaluating all 3 models across 4 task types (summarisation, JSON extraction, code generation, and multi-step reasoning) — 12 data points total.",
+      "Documented speed vs quality tradeoffs: Gemma 2 fastest at 4.8 tok/s, Llama 3.2 most reliable (4/4 tasks), Phi-3 Mini best code quality but unreliable on structured output.",
     ],
   },
   {
@@ -76,6 +78,8 @@ const projects = [
     points: [
       "A full-stack tool that probes LLMs for prompt injection, jailbreaking, system prompt extraction, data exfiltration, and role confusion attacks across 15 test cases.",
       "Compared Llama 3.2 vs Claude Haiku - Llama achieved 15/15 resistant while Haiku returned 3 failures and 5 partials on HIGH severity attacks.",
+      "Built a React/Tailwind dashboard with per-category breakdowns, severity badges, expandable prompt/response rows, and JSON report export.",
+      "Designed an extensible JSON attack library so new test cases and categories can be added without modifying backend or frontend code.",
     ],
   },
   {
