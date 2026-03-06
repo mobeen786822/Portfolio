@@ -55,6 +55,16 @@ const projects = [
     ],
   },
   {
+    title: "Local LLM Benchmark — Ollama",
+    category: "AI Engineering",
+    repo: "https://github.com/mobeen786822/local-llm-benchmark",
+    techStack: ["Python", "Ollama", "Llama 3.2", "Phi-3 Mini", "Gemma 2", "Ubuntu"],
+    points: [
+      "Benchmarked Llama 3.2, Phi-3 Mini, and Gemma 2 running entirely offline via Ollama on a CPU-only Ubuntu VM across 4 task types — documenting speed, reliability, and quality tradeoffs for local inference.",
+      "Identified task-specific failure modes including timeouts that would not surface in quality-only evaluations.",
+    ],
+  },
+  {
     title: "Production Support Incident Console",
     category: "Operations Simulation",
     repo: "https://github.com/mobeen786822/Production-Support-Incident-Console",
@@ -165,11 +175,20 @@ function Panel({ title, icon, children, className = "" }) {
   );
 }
 
-function Card({ title, subtitle, points, link, linkText = "Visit", links = [], note }) {
+function Card({ title, subtitle, points, link, linkText = "Visit", links = [], note, techStack = [] }) {
   return (
     <article className="rounded-2xl border border-slate-700 bg-slate-900/80 p-3.5 transition hover:-translate-y-1 hover:border-accent-300 sm:p-4">
       <h3 className="font-heading text-base text-slate-100 sm:text-lg">{title}</h3>
       {subtitle ? <p className="mt-1 text-sm text-slate-400">{subtitle}</p> : null}
+      {techStack.length > 0 ? (
+        <ul className="mt-2 flex flex-wrap gap-1.5">
+          {techStack.map((tech) => (
+            <li key={`${title}-${tech}`} className="rounded-full border border-brand-700/60 bg-slate-950 px-2.5 py-1 text-xs font-semibold text-brand-100">
+              {tech}
+            </li>
+          ))}
+        </ul>
+      ) : null}
       {link ? (
         <a className="mt-2 inline-flex items-center text-sm font-semibold text-brand-300 hover:text-accent-300" href={link} target="_blank" rel="noreferrer">
           ↗ {linkText}
@@ -329,6 +348,7 @@ function ProjectsPage() {
                   ...(item.repo ? [{ label: "GitHub", href: item.repo }] : []),
                   ...(item.website ? [{ label: "Website", href: item.website }] : []),
                 ]}
+                techStack={item.techStack}
                 note={item.repoNote}
                 points={item.points}
               />
