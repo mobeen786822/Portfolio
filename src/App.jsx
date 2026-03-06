@@ -69,6 +69,16 @@ const projects = [
     ],
   },
   {
+    title: "LLM Security Tester",
+    category: "AppSec",
+    repo: "https://github.com/mobeen786822/llm-security-tester",
+    techStack: ["Python", "Flask", "React", "Vite", "Tailwind CSS", "Ollama", "Anthropic API"],
+    points: [
+      "A full-stack tool that probes LLMs for prompt injection, jailbreaking, system prompt extraction, data exfiltration, and role confusion attacks across 15 test cases.",
+      "Compared Llama 3.2 vs Claude Haiku - Llama achieved 15/15 resistant while Haiku returned 3 failures and 5 partials on HIGH severity attacks.",
+    ],
+  },
+  {
     title: "Production Support Incident Console",
     category: "Operations Simulation",
     repo: "https://github.com/mobeen786822/Production-Support-Incident-Console",
