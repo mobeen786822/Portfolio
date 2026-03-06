@@ -33,6 +33,7 @@ const projects = [
     title: "Bunkerify",
     category: "Cybersecurity Platform",
     website: "https://www.bunkerify.com",
+    techStack: ["Next.js", "Supabase", "Vercel", "SendGrid", "Tailwind CSS"],
     points: [
       "Built and deployed Bunkerify on Vercel using Next.js, Supabase (PostgreSQL + auth), and SendGrid for transactional email delivery.",
       "Designed a custom scoring engine from scratch mapping 19 assessment questions to ACSC Essential Eight categories with weighted Maturity Level 0-3 calculations per category.",
@@ -45,6 +46,7 @@ const projects = [
     title: "Job Application Assistant",
     category: "Web App",
     repo: "https://github.com/mobeen786822/job-application-assistant",
+    techStack: ["Python", "Flask", "Anthropic API", "OpenAI API", "GitHub Actions", "Tailscale"],
     points: [
       "Built a web app that tailors resumes from job descriptions and exports PDF/HTML.",
       "Implemented OpenAI-powered content tailoring with strict no-fabrication rules.",
@@ -69,6 +71,7 @@ const projects = [
     category: "Operations Simulation",
     repo: "https://github.com/mobeen786822/Production-Support-Incident-Console",
     website: "https://incident-console-ui.onrender.com/",
+    techStack: ["React", "TypeScript", "FastAPI", "Python", "SQLAlchemy", "Docker", "JWT", "GitHub Actions"],
     points: [
       "Built a web-based incident management console to simulate production support workflows end-to-end.",
       "Implemented incident lifecycle tracking with severity, status transitions, ownership, and event timelines.",
@@ -84,6 +87,7 @@ const projects = [
     title: "Cancer Awareness Mobile App",
     category: "Mobile App",
     repoNote: "Private repo - available on request.",
+    techStack: ["React Native", "TypeScript", "Firebase"],
     points: [
       "Built a cross-platform mobile app using React Native and TypeScript.",
       "Implemented Firebase integration for authentication, cloud data storage, and messaging workflows.",
