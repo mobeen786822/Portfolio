@@ -73,7 +73,7 @@ const projects = [
   {
     title: "LLM Security Tester",
     category: "AppSec",
-    repo: "https://github.com/mobeen786822/llm-security-tester",
+    repo: "https://github.com/mobeen786822/-llm-security-tester",
     techStack: ["Python", "Flask", "React", "Vite", "Tailwind CSS", "Ollama", "Anthropic API"],
     points: [
       "A full-stack tool that probes LLMs for prompt injection, jailbreaking, system prompt extraction, data exfiltration, and role confusion attacks across 15 test cases.",
