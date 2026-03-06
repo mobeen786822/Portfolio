@@ -46,7 +46,7 @@ const projects = [
     title: "Job Application Assistant",
     category: "Web App",
     repo: "https://github.com/mobeen786822/job-application-assistant",
-    techStack: ["Python", "Flask", "Anthropic API", "OpenAI API", "GitHub Actions", "Tailscale"],
+    techStack: ["Python", "Flask", "Flask-Session", "Supabase", "Anthropic API", "OpenAI API", "GitHub Actions", "Tailscale"],
     points: [
       "Built a web app that tailors resumes from job descriptions and exports PDF/HTML.",
       "Implemented OpenAI-powered content tailoring with strict no-fabrication rules.",
@@ -54,6 +54,8 @@ const projects = [
       "Added UI preview, download actions, and loading feedback.",
       "Built a GitHub Actions CI/CD security pipeline using Bandit, Semgrep, Gitleaks, and pip-audit.",
       "Identified and resolved a medium-severity Bandit finding related to an interface binding vulnerability.",
+      "Extended into a multi-user SaaS with Supabase Auth, server-side sessions, and a per-user dashboard tracking generation history",
+      "Implemented server-side monthly usage limits (10/month per user) with Supabase RLS-enforced data isolation.",
     ],
   },
   {
