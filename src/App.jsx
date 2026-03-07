@@ -83,6 +83,15 @@ const projects = [
     ],
   },
   {
+    title: "Web Vulnerability Scanner",
+    category: "AppSec",
+    repo: "https://github.com/mobeen786822/web-vulnerability-scanner",
+    techStack: ["Python", "Flask", "React", "Vite", "Tailwind CSS", "GitHub Actions"],
+    points: [
+      "A full-stack web vulnerability scanner with 6 scanner modules covering security headers, SSL/TLS, sensitive path exposure, cookie flags, open redirects, and information disclosure. Supports single and batch URL scanning with concurrent execution, a severity-coded React dashboard, and client-side JSON report export.",
+    ],
+  },
+  {
     title: "Production Support Incident Console",
     category: "Operations Simulation",
     repo: "https://github.com/mobeen786822/Production-Support-Incident-Console",
