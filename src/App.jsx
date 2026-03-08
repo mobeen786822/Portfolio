@@ -78,6 +78,9 @@ const projects = [
     techStack: ["Python", "Flask", "React", "TypeScript", "Vite", "Tailwind CSS", "Anthropic Claude API"],
     points: [
       "An automated cybersecurity content pipeline that aggregates HIGH/CRITICAL CVEs from NVD, actively exploited vulnerabilities from CISA KEV, and AI security research from arXiv - then uses Claude Haiku to draft LinkedIn posts for weekly review. Features tone control, on-demand triggering, and a React/TypeScript dashboard.",
+      "Aggregates data from three sources concurrently — NVD API (CVSS ≥ 7.0), CISA Known Exploited Vulnerabilities feed, and arXiv AI security papers — filtered to the past 7 days.",
+      "Supports three generation tones (professional, conversational, technical) with one-click regeneration using the same fetched data.",
+      "Resolved 6 CVEs in dependencies (Flask, Flask-CORS, Requests) and a HIGH severity Bandit B201 finding surfaced by the CI/CD security pipeline.",
     ],
   },
   {
@@ -99,6 +102,9 @@ const projects = [
     techStack: ["Python", "Flask", "React", "Vite", "Tailwind CSS", "GitHub Actions"],
     points: [
       "A full-stack web vulnerability scanner with 6 scanner modules covering security headers, SSL/TLS, sensitive path exposure, cookie flags, open redirects, and information disclosure. Supports single and batch URL scanning with concurrent execution, a severity-coded React dashboard, and client-side JSON report export.",
+      "Implements concurrent URL scanning via ThreadPoolExecutor with a shared requests.Session per URL for efficiency — supports single and batch scan modes.",
+      "Each finding includes a severity rating (CRITICAL/HIGH/MEDIUM/LOW/INFO), status badge, detail, and remediation recommendation.",
+      "CI/CD security pipeline with Bandit SAST, Gitleaks secrets detection, and pip-audit dependency scanning with fail-gate on HIGH findings.",
     ],
   },
   {
