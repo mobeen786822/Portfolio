@@ -71,6 +71,16 @@ const projects = [
     ],
   },
   {
+    title: "Cyber Content Bot",
+    category: "AI Engineering",
+    repo: "https://github.com/mobeen786822/cyber-content-bot",
+    website: "https://cyber-content-bot-ui.onrender.com",
+    techStack: ["Python", "Flask", "React", "TypeScript", "Vite", "Tailwind CSS", "Anthropic Claude API"],
+    points: [
+      "An automated cybersecurity content pipeline that aggregates HIGH/CRITICAL CVEs from NVD, actively exploited vulnerabilities from CISA KEV, and AI security research from arXiv - then uses Claude Haiku to draft LinkedIn posts for weekly review. Features tone control, on-demand triggering, and a React/TypeScript dashboard.",
+    ],
+  },
+  {
     title: "LLM Security Tester",
     category: "AppSec",
     repo: "https://github.com/mobeen786822/-llm-security-tester",
