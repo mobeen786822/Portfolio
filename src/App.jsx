@@ -95,7 +95,6 @@ const projects = [
   {
     title: "Web Vulnerability Scanner",
     category: "AppSec",
-    repo: "https://github.com/mobeen786822/web-vulnerability-scanner",
     website: "https://web-vulnerability-scanner-lqy5.onrender.com/",
     techStack: ["Python", "Flask", "React", "Vite", "Tailwind CSS", "GitHub Actions"],
     points: [
