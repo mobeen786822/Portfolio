@@ -33,13 +33,15 @@ const projects = [
     title: "Bunkerify",
     category: "Cybersecurity Platform",
     website: "https://www.bunkerify.com",
-    techStack: ["Next.js", "Supabase", "Vercel", "SendGrid", "Tailwind CSS"],
+    techStack: ["Next.js", "Supabase", "Vercel", "SendGrid", "Tailwind CSS", "Web Vulnerability Scanner"],
     points: [
       "Built and deployed Bunkerify on Vercel using Next.js, Supabase (PostgreSQL + auth), and SendGrid for transactional email delivery.",
       "Designed a custom scoring engine from scratch mapping 19 assessment questions to ACSC Essential Eight categories with weighted Maturity Level 0-3 calculations per category.",
       "Implemented automated HTML email reports triggered on assessment completion, delivering personalised risk breakdowns and CTAs.",
       "Integrated Calendly booking workflow to convert assessment completions into consultations.",
       "Deployed a live marketing funnel with a landing page and LinkedIn launch assets to drive inbound leads.",
+      "Integrated a live web vulnerability scanner into the results page — triggered after the Essential Eight assessment, with findings stored in Supabase and included in the HTML email report.",
+      "Implemented an email gate for new users prior to scanning, with direct scan access for returning authenticated users.",
     ],
   },
   {
