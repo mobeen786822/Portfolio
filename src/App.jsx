@@ -496,7 +496,7 @@ function ProjectDetailPage() {
             </div>
           ) : null}
 
-          <article className="rounded-2xl border border-slate-700 bg-slate-900/70 p-4 sm:p-6">
+          <article className="animate-fadeUp rounded-2xl border border-slate-700 bg-slate-900/70 p-4 sm:p-6">
             <ReactMarkdown
               remarkPlugins={[remarkGfm]}
               components={{
