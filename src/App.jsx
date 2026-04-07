@@ -1,4 +1,8 @@
-﻿import { NavLink, Route, Routes } from "react-router-dom";
+﻿import ReactMarkdown from "react-markdown";
+import remarkGfm from "remark-gfm";
+import { Link, NavLink, Route, Routes, useParams } from "react-router-dom";
+import incidentConsoleWriteup from "./content/incident-console.md?raw";
+import jobApplicationAssistantWriteup from "./content/job-application-assistant.md?raw";
 
 const contact = [
   { label: "\u{1F4E7} Email", display: "Email: mobeenk89@gmail.com", href: "mailto:mobeenk89@gmail.com" },
@@ -141,6 +145,17 @@ const projects = [
   },
 ];
 
+const projectDetailPages = {
+  "incident-console": {
+    title: "Production Support Incident Console",
+    markdown: incidentConsoleWriteup,
+  },
+  "job-application-assistant": {
+    title: "Job Application Assistant",
+    markdown: jobApplicationAssistantWriteup,
+  },
+};
+
 const volunteer = [
   {
     title: "Web Developer (catchadrive.com)",
@@ -228,7 +243,7 @@ function Panel({ title, icon, children, className = "" }) {
   );
 }
 
-function Card({ title, subtitle, points, link, linkText = "Visit", links = [], note, techStack = [] }) {
+function Card({ title, subtitle, points, link, linkText = "Visit", links = [], note, techStack = [], readMorePath }) {
   return (
     <article className="rounded-2xl border border-slate-700 bg-slate-900/80 p-3.5 transition hover:-translate-y-1 hover:border-accent-300 sm:p-4">
       <h3 className="font-heading text-base text-slate-100 sm:text-lg">{title}</h3>
@@ -254,6 +269,13 @@ function Card({ title, subtitle, points, link, linkText = "Visit", links = [], n
               ↗ {item.label}
             </a>
           ))}
+        </div>
+      ) : null}
+      {readMorePath ? (
+        <div className="mt-2">
+          <Link to={readMorePath} className="inline-flex items-center text-sm font-semibold text-brand-300 hover:text-accent-300">
+            Read More →
+          </Link>
         </div>
       ) : null}
       {note ? <p className="mt-2 text-sm text-slate-400">{note}</p> : null}
@@ -386,6 +408,11 @@ function OverviewPage() {
 }
 
 function ProjectsPage() {
+  const readMoreMap = {
+    "Production Support Incident Console": "/projects/incident-console",
+    "Job Application Assistant": "/projects/job-application-assistant",
+  };
+
   return (
     <>
       <Hero />
@@ -404,9 +431,96 @@ function ProjectsPage() {
                 techStack={item.techStack}
                 note={item.repoNote}
                 points={item.points}
+                readMorePath={readMoreMap[item.title]}
               />
             ))}
           </div>
+        </Panel>
+      </main>
+    </>
+  );
+}
+
+function ProjectDetailPage() {
+  const { slug } = useParams();
+  const detail = projectDetailPages[slug];
+
+  if (!detail) {
+    return (
+      <>
+        <Hero />
+        <main className="mt-6 grid gap-4 sm:mt-8 sm:gap-6">
+          <Panel title="Project Not Found" icon={"⚠️"}>
+            <Link to="/projects" className="inline-flex items-center text-sm font-semibold text-brand-300 hover:text-accent-300">
+              ← Back to Projects
+            </Link>
+            <p className="text-slate-300">The project detail page you requested does not exist.</p>
+          </Panel>
+        </main>
+      </>
+    );
+  }
+
+  const project = projects.find((item) => item.title === detail.title);
+  const externalLinks = [
+    ...(project?.repo ? [{ label: "GitHub", href: project.repo }] : []),
+    ...(project?.website ? [{ label: "Live Site", href: project.website }] : []),
+  ];
+
+  return (
+    <>
+      <Hero />
+      <main className="mt-6 grid gap-4 sm:mt-8 sm:gap-6">
+        <Panel title="Project Detail" icon={"🧾"}>
+          <Link to="/projects" className="inline-flex items-center text-sm font-semibold text-brand-300 hover:text-accent-300">
+            ← Back to Projects
+          </Link>
+
+          <h1 className="font-heading text-2xl text-cyan-200 sm:text-3xl">{detail.title}</h1>
+
+          {project?.techStack?.length > 0 ? (
+            <ul className="flex flex-wrap gap-1.5">
+              {project.techStack.map((tech) => (
+                <li key={`${detail.title}-${tech}`} className="rounded-full border border-brand-700/60 bg-slate-950 px-2.5 py-1 text-xs font-semibold text-brand-100">
+                  {tech}
+                </li>
+              ))}
+            </ul>
+          ) : null}
+
+          {externalLinks.length > 0 ? (
+            <div className="flex flex-wrap gap-3">
+              {externalLinks.map((item) => (
+                <a key={`${detail.title}-${item.href}`} className="inline-flex items-center text-sm font-semibold text-brand-300 hover:text-accent-300" href={item.href} target="_blank" rel="noreferrer">
+                  ↗ {item.label}
+                </a>
+              ))}
+            </div>
+          ) : null}
+
+          <article className="rounded-2xl border border-slate-700 bg-slate-900/70 p-4 sm:p-6">
+            <ReactMarkdown
+              remarkPlugins={[remarkGfm]}
+              components={{
+                h2: ({ children }) => <h2 className="mt-6 font-heading text-xl text-cyan-200 first:mt-0 sm:text-2xl">{children}</h2>,
+                h3: ({ children }) => <h3 className="mt-5 font-heading text-lg text-cyan-100 sm:text-xl">{children}</h3>,
+                p: ({ children }) => <p className="mt-3 leading-relaxed text-slate-300">{children}</p>,
+                ul: ({ children }) => <ul className="mt-3 list-disc space-y-1.5 pl-5 text-slate-300">{children}</ul>,
+                ol: ({ children }) => <ol className="mt-3 list-decimal space-y-1.5 pl-5 text-slate-300">{children}</ol>,
+                li: ({ children }) => <li>{children}</li>,
+                a: ({ href, children }) => (
+                  <a className="font-semibold text-brand-300 hover:text-accent-300" href={href} target="_blank" rel="noreferrer">
+                    {children}
+                  </a>
+                ),
+                code: ({ children }) => <code className="rounded bg-slate-950 px-1.5 py-0.5 text-sm text-accent-300">{children}</code>,
+                pre: ({ children }) => <pre className="mt-4 overflow-x-auto rounded-xl border border-slate-700 bg-slate-950 p-4 text-sm text-slate-200">{children}</pre>,
+                strong: ({ children }) => <strong className="font-semibold text-slate-100">{children}</strong>,
+              }}
+            >
+              {detail.markdown}
+            </ReactMarkdown>
+          </article>
         </Panel>
       </main>
     </>
@@ -424,6 +538,7 @@ export default function App() {
       <Routes>
         <Route path="/" element={<OverviewPage />} />
         <Route path="/projects" element={<ProjectsPage />} />
+        <Route path="/projects/:slug" element={<ProjectDetailPage />} />
       </Routes>
       <Footer />
     </div>
