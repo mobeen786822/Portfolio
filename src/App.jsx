@@ -52,7 +52,7 @@ const projects = [
     title: "Job Application Assistant",
     category: "Web App",
     repo: "https://github.com/mobeen786822/job-application-assistant",
-    techStack: ["Python", "Flask", "Flask-Session", "Supabase", "Anthropic API", "OpenAI API", "GitHub Actions", "Tailscale"],
+    techStack: ["Python", "Flask", "Flask-Session", "Supabase", "Anthropic API", "OpenAI API", "GitHub Actions"],
     points: [
       "Built a web app that tailors resumes from job descriptions and exports PDF/HTML.",
       "Implemented OpenAI-powered content tailoring with strict no-fabrication rules.",
@@ -448,7 +448,6 @@ function ProjectDetailPage() {
   if (!detail) {
     return (
       <>
-        <Hero />
         <main className="mt-6 grid gap-4 sm:mt-8 sm:gap-6">
           <Panel title="Project Not Found" icon={"⚠️"}>
             <Link to="/projects" className="inline-flex items-center text-sm font-semibold text-brand-300 hover:text-accent-300">
@@ -469,7 +468,6 @@ function ProjectDetailPage() {
 
   return (
     <>
-      <Hero />
       <main className="mt-6 grid gap-4 sm:mt-8 sm:gap-6">
         <Panel title="Project Detail" icon={"🧾"}>
           <Link to="/projects" className="inline-flex items-center text-sm font-semibold text-brand-300 hover:text-accent-300">
