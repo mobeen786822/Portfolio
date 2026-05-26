@@ -5,8 +5,8 @@
 @tailwind utilities;
 
 :root {
-  color: #d6e0ee;
-  background: #050b14;
+  color: #172033;
+  background: #e8edf5;
   font-synthesis: none;
   text-rendering: optimizeLegibility;
   -webkit-font-smoothing: antialiased;
@@ -24,9 +24,8 @@ body {
   font-family: "DM Sans", "Segoe UI Emoji", "Apple Color Emoji", "Noto Color Emoji", sans-serif;
   background:
     radial-gradient(circle at 18% 0%, rgba(199, 166, 90, 0.16), transparent 30%),
-    radial-gradient(circle at 82% 10%, rgba(46, 95, 147, 0.22), transparent 32%),
-    radial-gradient(circle at 50% 92%, rgba(199, 166, 90, 0.08), transparent 38%),
-    linear-gradient(180deg, #050b14 0%, #071426 48%, #050b14 100%);
+    radial-gradient(circle at 82% 10%, rgba(46, 95, 147, 0.14), transparent 34%),
+    linear-gradient(180deg, #ffffff 0%, #f7f9fc 48%, #e8edf5 100%);
 }
 
 body::before {
@@ -36,10 +35,10 @@ body::before {
   z-index: -1;
   pointer-events: none;
   background-image:
-    linear-gradient(rgba(199, 166, 90, 0.055) 1px, transparent 1px),
-    linear-gradient(90deg, rgba(199, 166, 90, 0.055) 1px, transparent 1px);
+    linear-gradient(rgba(46, 95, 147, 0.07) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(46, 95, 147, 0.07) 1px, transparent 1px);
   background-size: 96px 96px;
-  mask-image: radial-gradient(circle at 50% 6%, black 0%, transparent 72%);
+  mask-image: radial-gradient(circle at 50% 6%, black 0%, transparent 70%);
 }
 
 * {
