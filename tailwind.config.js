@@ -9,22 +9,23 @@ export default {
       },
       colors: {
         brand: {
-          50: "#fff8e7",
-          100: "#f2dfab",
-          300: "#d7c38a",
-          500: "#c7a65a",
-          700: "#8e7034",
+          50: "#eff6ff",
+          100: "#dbeafe",
+          300: "#9fc2e8",
+          500: "#2e5f93",
+          700: "#0d2138",
           900: "#071426",
         },
         accent: {
-          300: "#9fc2e8",
-          500: "#2e5f93",
-          700: "#143555",
+          300: "#d7c38a",
+          500: "#c7a65a",
+          700: "#8e7034",
         },
       },
       boxShadow: {
-        soft: "0 24px 80px -30px rgba(199, 166, 90, 0.38)",
-        card: "0 18px 60px -38px rgba(7, 20, 38, 0.95)",
+        soft: "0 30px 100px -42px rgba(46, 95, 147, 0.9)",
+        card: "0 20px 70px -42px rgba(1, 8, 18, 0.95)",
+        glow: "0 24px 80px -45px rgba(46, 95, 147, 0.95), 0 0 0 1px rgba(199, 166, 90, 0.08)",
       },
       keyframes: {
         fadeUp: {

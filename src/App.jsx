@@ -233,8 +233,8 @@ const cybersecurityTools = [
 
 function Panel({ title, icon, children, className = "" }) {
   return (
-    <section className={`rounded-[1.35rem] border border-slate-200 bg-white/90 p-4 shadow-soft backdrop-blur-xl sm:p-6 ${className}`}>
-      <h2 className="font-heading text-xl font-bold tracking-[-0.025em] text-slate-950 sm:text-2xl">
+    <section className={`relative overflow-hidden rounded-[1.35rem] border border-[#2e5f93]/30 bg-[#0d2138]/72 p-4 shadow-soft backdrop-blur-xl before:absolute before:inset-x-6 before:top-0 before:h-px before:bg-gradient-to-r before:from-transparent before:via-[#c7a65a]/45 before:to-transparent sm:p-6 ${className}`}>
+      <h2 className="relative font-heading text-xl font-bold tracking-[-0.025em] text-slate-50 sm:text-2xl">
         <span className="mr-2">{icon}</span>
         {title}
       </h2>
@@ -245,27 +245,27 @@ function Panel({ title, icon, children, className = "" }) {
 
 function Card({ title, subtitle, points, link, linkText = "Visit", links = [], note, techStack = [], readMorePath }) {
   return (
-    <article className="group rounded-[1.15rem] border border-slate-200 bg-white p-3.5 shadow-card transition duration-300 hover:-translate-y-1 hover:border-brand-500/60 hover:bg-brand-50/45 sm:p-4">
-      <h3 className="font-heading text-base font-bold tracking-[-0.02em] text-slate-950 sm:text-lg">{title}</h3>
-      {subtitle ? <p className="mt-1 text-sm text-slate-600">{subtitle}</p> : null}
+    <article className="group rounded-[1.15rem] border border-[#2e5f93]/25 bg-[#071426]/72 p-3.5 shadow-card transition duration-300 hover:-translate-y-1 hover:border-[#c7a65a]/45 hover:bg-[#0d2138]/85 hover:shadow-glow sm:p-4">
+      <h3 className="font-heading text-base font-bold tracking-[-0.02em] text-slate-50 sm:text-lg">{title}</h3>
+      {subtitle ? <p className="mt-1 text-sm text-blue-100/70">{subtitle}</p> : null}
       {techStack.length > 0 ? (
         <ul className="mt-2 flex flex-wrap gap-1.5">
           {techStack.map((tech) => (
-            <li key={`${title}-${tech}`} className="rounded-full border border-brand-500/25 bg-brand-50 px-2.5 py-1 text-xs font-bold text-slate-700">
+            <li key={`${title}-${tech}`} className="rounded-full border border-[#2e5f93]/35 bg-[#2e5f93]/12 px-2.5 py-1 text-xs font-bold text-blue-100">
               {tech}
             </li>
           ))}
         </ul>
       ) : null}
       {link ? (
-        <a className="mt-2 inline-flex items-center text-sm font-semibold text-accent-500 hover:text-brand-700" href={link} target="_blank" rel="noreferrer">
+        <a className="mt-2 inline-flex items-center text-sm font-semibold text-[#c7a65a] hover:text-blue-100" href={link} target="_blank" rel="noreferrer">
           ↗ {linkText}
         </a>
       ) : null}
       {links.length > 0 ? (
         <div className="mt-2 flex flex-wrap gap-3">
           {links.map((item) => (
-            <a key={`${title}-${item.href}-${item.label}`} className="inline-flex items-center text-sm font-semibold text-accent-500 hover:text-brand-700" href={item.href} target="_blank" rel="noreferrer">
+            <a key={`${title}-${item.href}-${item.label}`} className="inline-flex items-center text-sm font-semibold text-[#c7a65a] hover:text-blue-100" href={item.href} target="_blank" rel="noreferrer">
               ↗ {item.label}
             </a>
           ))}
@@ -273,14 +273,14 @@ function Card({ title, subtitle, points, link, linkText = "Visit", links = [], n
       ) : null}
       {readMorePath ? (
         <div className="mt-2">
-          <Link to={readMorePath} className="inline-flex items-center text-sm font-semibold text-accent-500 hover:text-brand-700">
+          <Link to={readMorePath} className="inline-flex items-center text-sm font-semibold text-[#c7a65a] hover:text-blue-100">
             Read More →
           </Link>
         </div>
       ) : null}
-      {note ? <p className="mt-2 text-sm text-slate-600">{note}</p> : null}
+      {note ? <p className="mt-2 text-sm text-blue-100/70">{note}</p> : null}
       {points ? (
-        <ul className="mt-3 list-disc space-y-1.5 pl-5 text-slate-700">
+        <ul className="mt-3 list-disc space-y-1.5 pl-5 text-blue-50/82 marker:text-[#c7a65a]/75">
           {points.map((point) => (
             <li key={point}>{point}</li>
           ))}
@@ -293,12 +293,12 @@ function Card({ title, subtitle, points, link, linkText = "Visit", links = [], n
 function TopBar() {
   const navClass = ({ isActive }) =>
     `rounded-full px-3 py-2 text-sm font-semibold transition ${
-      isActive ? "bg-brand-500 text-slate-950" : "text-slate-600 hover:bg-brand-50 hover:text-slate-950"
+      isActive ? "bg-[#c7a65a] text-[#071426] shadow-[0_8px_30px_-16px_rgba(199,166,90,.9)]" : "text-blue-100/75 hover:bg-[#2e5f93]/20 hover:text-white"
     }`;
 
   return (
-    <div className="sticky top-3 z-20 mb-4 flex items-center justify-between rounded-full border border-slate-200 bg-white/90 p-2 shadow-card backdrop-blur-xl sm:mb-6">
-      <span className="px-3 font-heading text-sm font-bold tracking-[-0.015em] text-slate-950 sm:text-base">Mobeen Khan</span>
+    <div className="sticky top-3 z-20 mb-4 flex items-center justify-between rounded-full border border-[#2e5f93]/35 bg-[#071426]/82 p-2 shadow-card backdrop-blur-xl sm:mb-6">
+      <span className="px-3 font-heading text-sm font-bold tracking-[-0.015em] text-slate-50 sm:text-base">Mobeen Khan</span>
       <nav className="flex items-center gap-1">
         <NavLink to="/" end className={navClass}>
           Overview
@@ -313,17 +313,17 @@ function TopBar() {
 
 function Hero() {
   return (
-    <header className="relative overflow-hidden rounded-[1.6rem] border border-slate-200 border-b-4 border-b-brand-500 bg-gradient-to-br from-white via-[#f7f9fc] to-[#e8edf5] p-5 text-slate-950 shadow-soft sm:p-8 lg:p-10">
-      <div className="absolute -right-14 -top-14 h-48 w-48 rounded-full bg-brand-500/20 blur-3xl" aria-hidden="true" />
-      <div className="absolute -left-14 bottom-0 h-44 w-44 rounded-full bg-accent-500/10 blur-3xl" aria-hidden="true" />
+    <header className="relative overflow-hidden rounded-[1.6rem] border border-[#2e5f93]/35 border-b-4 border-b-[#c7a65a] bg-[linear-gradient(135deg,rgba(7,20,38,.98),rgba(13,33,56,.94)_48%,rgba(46,95,147,.48))] p-5 text-slate-50 shadow-soft sm:p-8 lg:p-10">
+      <div className="absolute -right-14 -top-14 h-56 w-56 rounded-full bg-[#2e5f93]/45 blur-3xl" aria-hidden="true" />
+      <div className="absolute -left-14 bottom-0 h-44 w-44 rounded-full bg-[#c7a65a]/14 blur-3xl" aria-hidden="true" />
       <div className="relative flex flex-col gap-6 md:flex-row md:items-center md:justify-between">
         <div>
-          <p className="font-heading text-xs uppercase tracking-[0.18em] text-brand-700 sm:text-sm sm:tracking-[0.22em]">Cybersecurity-Focused Software Engineer</p>
+          <p className="font-heading text-xs uppercase tracking-[0.18em] text-[#c7a65a] sm:text-sm sm:tracking-[0.22em]">Cybersecurity-Focused Software Engineer</p>
           <h1 className="mt-3 max-w-4xl font-heading text-4xl font-bold leading-[0.98] tracking-[-0.055em] sm:text-6xl">Mobeen Khan</h1>
-          <p className="mt-4 max-w-3xl text-base leading-relaxed text-slate-700 sm:text-lg">
+          <p className="mt-4 max-w-3xl text-base leading-relaxed text-blue-50/86 sm:text-lg">
             Building and shipping secure, production-ready products from full-stack web apps to a live cybersecurity platform.
           </p>
-          <p className="mt-3 max-w-3xl text-sm leading-relaxed text-slate-600 sm:text-base">
+          <p className="mt-3 max-w-3xl text-sm leading-relaxed text-blue-100/72 sm:text-base">
             I care about making cybersecurity practical, not intimidating. Building Bunkerify came from seeing how many small businesses and founders wanted clear security guidance
             but had no simple starting point. I'm driven by turning complex risk into tools people can actually use.
           </p>
@@ -334,7 +334,7 @@ function Hero() {
                 href={item.href}
                 target={item.href.startsWith("http") ? "_blank" : undefined}
                 rel={item.href.startsWith("http") ? "noreferrer" : undefined}
-                className="rounded-full border border-brand-500/35 bg-white px-4 py-2.5 text-center text-xs font-black uppercase tracking-[0.12em] text-slate-800 shadow-sm transition hover:-translate-y-0.5 hover:border-brand-500 hover:bg-brand-50 hover:text-slate-950 sm:text-left"
+                className="rounded-full border border-[#2e5f93]/45 bg-[#0d2138]/72 px-4 py-2.5 text-center text-xs font-black uppercase tracking-[0.12em] text-blue-50 shadow-sm transition hover:-translate-y-0.5 hover:border-[#c7a65a]/75 hover:bg-[#c7a65a] hover:text-[#071426] sm:text-left"
               >
                 {item.display.startsWith("Email:") ? item.display : item.label}
               </a>
@@ -344,7 +344,7 @@ function Hero() {
         <img
           src="/images/user.png"
           alt="Portrait of Mobeen Khan"
-          className="order-first h-36 w-36 self-center rounded-[1.25rem] border border-brand-500/35 object-cover shadow-[0_24px_70px_-34px_rgba(7,20,38,.45)] md:order-none md:h-44 md:w-44 md:self-auto"
+          className="order-first h-36 w-36 self-center rounded-[1.25rem] border border-[#c7a65a]/35 object-cover shadow-[0_24px_80px_-30px_rgba(46,95,147,.85)] md:order-none md:h-44 md:w-44 md:self-auto"
         />
       </div>
     </header>
@@ -366,10 +366,10 @@ function OverviewPage() {
           <div className="space-y-4">
             {skillCategories.map((category) => (
               <div key={category.name}>
-                <h3 className="text-xs font-black uppercase tracking-[0.18em] text-brand-700">{category.name}</h3>
+                <h3 className="text-xs font-black uppercase tracking-[0.18em] text-[#c7a65a]">{category.name}</h3>
                 <ul className="mt-2 flex flex-wrap gap-1.5 sm:gap-2">
                   {category.items.map((skill) => (
-                    <li key={`${category.name}-${skill}`} className="rounded-full border border-brand-500/25 bg-brand-50 px-2.5 py-1 text-xs font-bold text-slate-700 sm:px-3 sm:py-1.5 sm:text-sm">
+                    <li key={`${category.name}-${skill}`} className="rounded-full border border-[#2e5f93]/35 bg-[#2e5f93]/12 px-2.5 py-1 text-xs font-bold text-blue-100 sm:px-3 sm:py-1.5 sm:text-sm">
                       {skill}
                     </li>
                   ))}
@@ -388,7 +388,7 @@ function OverviewPage() {
         <Panel title="Cybersecurity Tools" icon={"\u{1F6E1}\u{FE0F}"} className="lg:col-span-12">
           <ul className="flex flex-wrap gap-1.5 sm:gap-2">
             {cybersecurityTools.map((tool) => (
-              <li key={tool} className="rounded-full border border-brand-500/25 bg-brand-50 px-2.5 py-1 text-xs font-bold text-slate-700 sm:px-3 sm:py-1.5 sm:text-sm">
+              <li key={tool} className="rounded-full border border-[#2e5f93]/35 bg-[#2e5f93]/12 px-2.5 py-1 text-xs font-bold text-blue-100 sm:px-3 sm:py-1.5 sm:text-sm">
                 {tool}
               </li>
             ))}
@@ -450,10 +450,10 @@ function ProjectDetailPage() {
       <>
         <main className="mt-6 grid gap-4 sm:mt-8 sm:gap-6">
           <Panel title="Project Not Found" icon={"⚠️"}>
-            <Link to="/projects" className="inline-flex items-center text-sm font-semibold text-accent-500 hover:text-brand-700">
+            <Link to="/projects" className="inline-flex items-center text-sm font-semibold text-[#c7a65a] hover:text-blue-100">
               ← Back to Projects
             </Link>
-            <p className="text-slate-700">The project detail page you requested does not exist.</p>
+            <p className="text-blue-50/82">The project detail page you requested does not exist.</p>
           </Panel>
         </main>
       </>
@@ -470,16 +470,16 @@ function ProjectDetailPage() {
     <>
       <main className="mt-6 grid gap-4 sm:mt-8 sm:gap-6">
         <Panel title="Project Detail" icon={"🧾"}>
-          <Link to="/projects" className="inline-flex items-center text-sm font-semibold text-accent-500 hover:text-brand-700">
+          <Link to="/projects" className="inline-flex items-center text-sm font-semibold text-[#c7a65a] hover:text-blue-100">
             ← Back to Projects
           </Link>
 
-          <h1 className="font-heading text-2xl font-bold tracking-[-0.035em] text-slate-950 sm:text-3xl">{detail.title}</h1>
+          <h1 className="font-heading text-2xl font-bold tracking-[-0.035em] text-slate-50 sm:text-3xl">{detail.title}</h1>
 
           {project?.techStack?.length > 0 ? (
             <ul className="flex flex-wrap gap-1.5">
               {project.techStack.map((tech) => (
-                <li key={`${detail.title}-${tech}`} className="rounded-full border border-brand-500/25 bg-brand-50 px-2.5 py-1 text-xs font-bold text-slate-700">
+                <li key={`${detail.title}-${tech}`} className="rounded-full border border-[#2e5f93]/35 bg-[#2e5f93]/12 px-2.5 py-1 text-xs font-bold text-blue-100">
                   {tech}
                 </li>
               ))}
@@ -489,31 +489,31 @@ function ProjectDetailPage() {
           {externalLinks.length > 0 ? (
             <div className="flex flex-wrap gap-3">
               {externalLinks.map((item) => (
-                <a key={`${detail.title}-${item.href}`} className="inline-flex items-center text-sm font-semibold text-accent-500 hover:text-brand-700" href={item.href} target="_blank" rel="noreferrer">
+                <a key={`${detail.title}-${item.href}`} className="inline-flex items-center text-sm font-semibold text-[#c7a65a] hover:text-blue-100" href={item.href} target="_blank" rel="noreferrer">
                   ↗ {item.label}
                 </a>
               ))}
             </div>
           ) : null}
 
-          <article className="animate-fadeUp rounded-[1.25rem] border border-slate-200 bg-white p-4 shadow-card sm:p-6">
+          <article className="animate-fadeUp rounded-[1.25rem] border border-[#2e5f93]/25 bg-[#071426]/72 p-4 shadow-card sm:p-6">
             <ReactMarkdown
               remarkPlugins={[remarkGfm]}
               components={{
-                h2: ({ children }) => <h2 className="mt-6 font-heading text-xl font-bold text-slate-950 first:mt-0 sm:text-2xl">{children}</h2>,
-                h3: ({ children }) => <h3 className="mt-5 font-heading text-lg font-bold text-slate-950 sm:text-xl">{children}</h3>,
-                p: ({ children }) => <p className="mt-3 leading-relaxed text-slate-700">{children}</p>,
-                ul: ({ children }) => <ul className="mt-3 list-disc space-y-1.5 pl-5 text-slate-700">{children}</ul>,
-                ol: ({ children }) => <ol className="mt-3 list-decimal space-y-1.5 pl-5 text-slate-700">{children}</ol>,
+                h2: ({ children }) => <h2 className="mt-6 font-heading text-xl font-bold text-slate-50 first:mt-0 sm:text-2xl">{children}</h2>,
+                h3: ({ children }) => <h3 className="mt-5 font-heading text-lg font-bold text-slate-50 sm:text-xl">{children}</h3>,
+                p: ({ children }) => <p className="mt-3 leading-relaxed text-blue-50/82">{children}</p>,
+                ul: ({ children }) => <ul className="mt-3 list-disc space-y-1.5 pl-5 text-blue-50/82 marker:text-[#c7a65a]/75">{children}</ul>,
+                ol: ({ children }) => <ol className="mt-3 list-decimal space-y-1.5 pl-5 text-blue-50/82">{children}</ol>,
                 li: ({ children }) => <li>{children}</li>,
                 a: ({ href, children }) => (
-                  <a className="font-semibold text-accent-500 hover:text-brand-700" href={href} target="_blank" rel="noreferrer">
+                  <a className="font-semibold text-[#c7a65a] hover:text-blue-100" href={href} target="_blank" rel="noreferrer">
                     {children}
                   </a>
                 ),
-                code: ({ children }) => <code className="rounded bg-brand-50 px-1.5 py-0.5 text-sm text-brand-700">{children}</code>,
-                pre: ({ children }) => <pre className="mt-4 overflow-x-auto rounded-xl border border-slate-200 bg-slate-950 p-4 text-sm text-slate-100">{children}</pre>,
-                strong: ({ children }) => <strong className="font-semibold text-slate-950">{children}</strong>,
+                code: ({ children }) => <code className="rounded bg-[#2e5f93]/18 px-1.5 py-0.5 text-sm text-[#c7a65a]">{children}</code>,
+                pre: ({ children }) => <pre className="mt-4 overflow-x-auto rounded-xl border border-[#2e5f93]/35 bg-[#020814] p-4 text-sm text-slate-100">{children}</pre>,
+                strong: ({ children }) => <strong className="font-semibold text-white">{children}</strong>,
               }}
             >
               {detail.markdown}
@@ -526,7 +526,7 @@ function ProjectDetailPage() {
 }
 
 function Footer() {
-  return <footer className="mt-8 border-t border-brand-500/20 pt-4 text-center text-sm text-slate-600">© {new Date().getFullYear()} Mobeen Khan</footer>;
+  return <footer className="mt-8 border-t border-[#2e5f93]/30 pt-4 text-center text-sm text-blue-100/65">© {new Date().getFullYear()} Mobeen Khan</footer>;
 }
 
 export default function App() {
