@@ -3,3 +3,19 @@ dist/
 .vite/
 *.log
 resume.txt
+
+# Local preview artifacts
+.openclaw-preview/
+*.local.html
+*-preview.html
+preview/
+.previews/
+
+# Local reports and temporary review output
+reports-local/
+security-reports-local/
+tmp/
+temp/
+
+# Logs and generated local output
+*.tmp
