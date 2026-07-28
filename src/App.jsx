@@ -1,6 +1,6 @@
 import ReactMarkdown from "react-markdown";
 import remarkGfm from "remark-gfm";
-import { Link, NavLink, Route, Routes, useParams } from "react-router-dom";
+import { Link, NavLink, Route, Routes, useParams } from "react-router";
 import incidentConsoleWriteup from "./content/incident-console.md?raw";
 import jobApplicationAssistantWriteup from "./content/job-application-assistant.md?raw";
 
