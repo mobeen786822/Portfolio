@@ -3,6 +3,7 @@ import remarkGfm from "remark-gfm";
 import { Link, NavLink, Route, Routes, useParams } from "react-router";
 import incidentConsoleWriteup from "./content/incident-console.md?raw";
 import jobApplicationAssistantWriteup from "./content/job-application-assistant.md?raw";
+import goldenHourWriteup from "./content/golden-hour-pilates.md?raw";
 
 const contact = [
   { label: "\u{1F4E7} Email", display: "Email: mobeenk89@gmail.com", href: "mailto:mobeenk89@gmail.com" },
@@ -131,6 +132,18 @@ const projects = [
     ],
   },
   {
+    title: "Golden Hour Pilates Website Redesign",
+    category: "Frontend and UX Redesign",
+    repoNote: "Private client-concept repository. Code available on request.",
+    techStack: ["React", "Vite", "JavaScript", "CSS", "Responsive Design", "Accessibility", "Local SEO", "Momence"],
+    points: [
+      "Audited the existing Squarespace homepage and translated its strong identity into a clearer, conversion-focused customer journey.",
+      "Rebuilt the experience as a responsive React application using the studio's official logo system, colour palette, photography, and live Momence schedule.",
+      "Added class discovery, beginner guidance, FAQs, contact actions, location information, accessible navigation, and mobile-first interaction design.",
+      "Documented the redesign as an honest before-and-after case study without claiming unmeasured commercial results.",
+    ],
+  },
+  {
     title: "Cancer Awareness Mobile App",
     category: "Mobile App",
     repoNote: "Private repo - available on request.",
@@ -153,6 +166,24 @@ const projectDetailPages = {
   "job-application-assistant": {
     title: "Job Application Assistant",
     markdown: jobApplicationAssistantWriteup,
+  },
+  "golden-hour-pilates": {
+    title: "Golden Hour Pilates Website Redesign",
+    markdown: goldenHourWriteup,
+    comparison: {
+      desktop: {
+        before: "/images/golden-hour/before-desktop.png",
+        after: "/images/golden-hour/after-desktop.png",
+        beforeFull: "/images/golden-hour/before-desktop-full.png",
+        afterFull: "/images/golden-hour/after-desktop-full.png",
+      },
+      mobile: {
+        before: "/images/golden-hour/before-mobile.png",
+        after: "/images/golden-hour/after-mobile.png",
+        beforeFull: "/images/golden-hour/before-mobile-full.png",
+        afterFull: "/images/golden-hour/after-mobile-full.png",
+      },
+    },
   },
 };
 
@@ -411,6 +442,7 @@ function ProjectsPage() {
   const readMoreMap = {
     "Production Support Incident Console": "/projects/incident-console",
     "Job Application Assistant": "/projects/job-application-assistant",
+    "Golden Hour Pilates Website Redesign": "/projects/golden-hour-pilates",
   };
 
   return (
@@ -438,6 +470,45 @@ function ProjectsPage() {
         </Panel>
       </main>
     </>
+  );
+}
+
+function BeforeAfterComparison({ comparison }) {
+  return (
+    <section className="space-y-6" aria-labelledby="before-after-title">
+      <div>
+        <p className="text-xs font-black uppercase tracking-[0.18em] text-[#c7a65a]">Visual comparison</p>
+        <h2 id="before-after-title" className="mt-2 font-heading text-xl font-bold text-slate-50 sm:text-2xl">Before and after</h2>
+        <p className="mt-2 max-w-3xl leading-relaxed text-blue-50/82">Matched viewport captures show how the original brand-led page became a structured, responsive booking journey.</p>
+      </div>
+
+      {Object.entries(comparison).map(([viewport, images]) => (
+        <div key={viewport} className="rounded-[1.25rem] border border-[#2e5f93]/25 bg-[#071426]/72 p-3 shadow-card sm:p-4">
+          <h3 className="font-heading text-lg font-bold capitalize text-slate-50">{viewport}</h3>
+          <div className="mt-3 grid gap-3 md:grid-cols-2">
+            {[
+              { label: "Before", src: images.before, full: images.beforeFull },
+              { label: "After", src: images.after, full: images.afterFull },
+            ].map((image) => (
+              <figure key={`${viewport}-${image.label}`} className="overflow-hidden rounded-xl border border-[#2e5f93]/30 bg-[#020814]">
+                <figcaption className="flex items-center justify-between border-b border-[#2e5f93]/25 px-3 py-2">
+                  <span className="text-xs font-black uppercase tracking-[0.16em] text-blue-100">{image.label}</span>
+                  <a className="text-xs font-semibold text-[#c7a65a] hover:text-blue-100" href={image.full} target="_blank" rel="noreferrer">View full page ↗</a>
+                </figcaption>
+                <a href={image.src} target="_blank" rel="noreferrer" aria-label={`Open ${viewport} ${image.label.toLowerCase()} screenshot`}>
+                  <img
+                    src={image.src}
+                    alt={`${image.label} ${viewport} view of the Golden Hour Pilates homepage`}
+                    className={`w-full object-cover object-top ${viewport === "mobile" ? "aspect-[390/844]" : "aspect-[36/25]"}`}
+                    loading="lazy"
+                  />
+                </a>
+              </figure>
+            ))}
+          </div>
+        </div>
+      ))}
+    </section>
   );
 }
 
@@ -495,6 +566,8 @@ function ProjectDetailPage() {
               ))}
             </div>
           ) : null}
+
+          {detail.comparison ? <BeforeAfterComparison comparison={detail.comparison} /> : null}
 
           <article className="animate-fadeUp rounded-[1.25rem] border border-[#2e5f93]/25 bg-[#071426]/72 p-4 shadow-card sm:p-6">
             <ReactMarkdown
