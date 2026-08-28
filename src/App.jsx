@@ -4,6 +4,8 @@ import { Link, NavLink, Route, Routes, useParams } from "react-router";
 import incidentConsoleWriteup from "./content/incident-console.md?raw";
 import jobApplicationAssistantWriteup from "./content/job-application-assistant.md?raw";
 import goldenHourWriteup from "./content/golden-hour-pilates.md?raw";
+import jzTechWriteup from "./content/jz-tech.md?raw";
+import jzsmWriteup from "./content/jzsm.md?raw";
 
 const contact = [
   { label: "\u{1F4E7} Email", display: "Email: mobeenk89@gmail.com", href: "mailto:mobeenk89@gmail.com" },
@@ -133,14 +135,38 @@ const projects = [
   },
   {
     title: "Golden Hour Pilates Website Redesign",
-    category: "Frontend and UX Redesign",
-    repoNote: "Private client-concept repository. Code available on request.",
-    techStack: ["React", "Vite", "JavaScript", "CSS", "Responsive Design", "Accessibility", "Local SEO", "Momence"],
+    category: "Client Website and Production Launch",
+    website: "https://www.goldenhourpilates.com.au",
+    techStack: ["React", "Vite", "JavaScript", "CSS", "Mindbody", "Vercel", "Accessibility", "Local SEO"],
     points: [
       "Audited the existing Squarespace homepage and translated its strong identity into a clearer, conversion-focused customer journey.",
-      "Rebuilt the experience as a responsive React application using the studio's official logo system, colour palette, photography, and live Momence schedule.",
-      "Added class discovery, beginner guidance, FAQs, contact actions, location information, accessible navigation, and mobile-first interaction design.",
-      "Documented the redesign as an honest before-and-after case study without claiming unmeasured commercial results.",
+      "Rebuilt and launched the production website as a responsive React application using the studio's official identity, photography, and live Mindbody schedule.",
+      "Strengthened the introductory-offer journey with clearer calls to action, persistent mobile booking access, class discovery, beginner guidance, FAQs, and direct contact actions.",
+      "Implemented semantic structure, reduced-motion support, keyboard focus states, local-business metadata, responsive QA, and a production Vercel deployment.",
+    ],
+  },
+  {
+    title: "JZ Tech Web Studio",
+    category: "Business Website and Brand System",
+    website: "https://www.jztech.com.au",
+    techStack: ["Next.js", "React", "TypeScript", "Tailwind CSS", "Vercel", "GitHub Actions", "Accessibility", "Technical SEO"],
+    points: [
+      "Designed and launched a production website for an Australian web studio, translating its brand foundation into a distinctive dark editorial interface.",
+      "Structured the customer journey around services, delivery process, maintenance, proof, FAQs, and a direct enquiry path.",
+      "Implemented a responsive cinematic hero with poster, mobile, reduced-motion, and data-saving fallbacks.",
+      "Built portable brand tokens, automated WCAG contrast checks, semantic metadata, structured data, CI validation, and a production Vercel deployment.",
+    ],
+  },
+  {
+    title: "JZ Supports & Maintenance Website",
+    category: "Multi-page Service Website",
+    website: "https://www.jzsm.com.au",
+    techStack: ["Next.js", "React", "TypeScript", "Tailwind CSS", "Relume", "shadcn/ui", "Radix UI", "Vercel", "Accessibility"],
+    points: [
+      "Designed and launched a seven-route website for a practical support and home-maintenance provider.",
+      "Built distinct service journeys for NDIS supports, injury recovery, cleaning, lawns and maintenance, company information, and enquiries.",
+      "Adapted genuine Relume components into an editable local component system using shadcn/Radix foundations and project-specific design tokens.",
+      "Implemented accessible navigation, motion safeguards, funding disclaimers, semantic metadata, responsive QA, and production Vercel hosting.",
     ],
   },
   {
@@ -183,6 +209,22 @@ const projectDetailPages = {
         beforeFull: "/images/golden-hour/before-mobile-full.png",
         afterFull: "/images/golden-hour/after-mobile-full.png",
       },
+    },
+  },
+  "jz-tech": {
+    title: "JZ Tech Web Studio",
+    markdown: jzTechWriteup,
+    showcase: {
+      desktop: "/images/jztech/desktop.png",
+      mobile: "/images/jztech/mobile.png",
+    },
+  },
+  "jzsm": {
+    title: "JZ Supports & Maintenance Website",
+    markdown: jzsmWriteup,
+    showcase: {
+      desktop: "/images/jzsm/desktop.png",
+      mobile: "/images/jzsm/mobile.png",
     },
   },
 };
@@ -443,6 +485,8 @@ function ProjectsPage() {
     "Production Support Incident Console": "/projects/incident-console",
     "Job Application Assistant": "/projects/job-application-assistant",
     "Golden Hour Pilates Website Redesign": "/projects/golden-hour-pilates",
+    "JZ Tech Web Studio": "/projects/jz-tech",
+    "JZ Supports & Maintenance Website": "/projects/jzsm",
   };
 
   return (
@@ -512,6 +556,42 @@ function BeforeAfterComparison({ comparison }) {
   );
 }
 
+function ProductionShowcase({ title, showcase }) {
+  const views = [
+    { key: "desktop", label: "Desktop", src: showcase.desktop, className: "aspect-[36/25]" },
+    { key: "mobile", label: "Mobile", src: showcase.mobile, className: "aspect-[390/844]" },
+  ];
+
+  return (
+    <section className="space-y-6" aria-labelledby="production-showcase-title">
+      <div>
+        <p className="text-xs font-black uppercase tracking-[0.18em] text-[#c7a65a]">Production website</p>
+        <h2 id="production-showcase-title" className="mt-2 font-heading text-xl font-bold text-slate-50 sm:text-2xl">Live responsive showcase</h2>
+        <p className="mt-2 max-w-3xl leading-relaxed text-blue-50/82">Current production captures show the delivered experience across desktop and mobile.</p>
+      </div>
+
+      <div className="grid gap-3 md:grid-cols-[minmax(0,1fr)_minmax(15rem,0.42fr)]">
+        {views.map((view) => (
+          <figure key={view.key} className="overflow-hidden rounded-xl border border-[#2e5f93]/30 bg-[#020814]">
+            <figcaption className="flex items-center justify-between border-b border-[#2e5f93]/25 px-3 py-2">
+              <span className="text-xs font-black uppercase tracking-[0.16em] text-blue-100">{view.label}</span>
+              <a className="text-xs font-semibold text-[#c7a65a] hover:text-blue-100" href={view.src} target="_blank" rel="noreferrer">Open image ↗</a>
+            </figcaption>
+            <a href={view.src} target="_blank" rel="noreferrer" aria-label={`Open ${view.label.toLowerCase()} screenshot of ${title}`}>
+              <img
+                src={view.src}
+                alt={`${view.label} view of the live ${title} website`}
+                className={`w-full object-cover object-top ${view.className}`}
+                loading="lazy"
+              />
+            </a>
+          </figure>
+        ))}
+      </div>
+    </section>
+  );
+}
+
 function ProjectDetailPage() {
   const { slug } = useParams();
   const detail = projectDetailPages[slug];
@@ -568,6 +648,7 @@ function ProjectDetailPage() {
           ) : null}
 
           {detail.comparison ? <BeforeAfterComparison comparison={detail.comparison} /> : null}
+          {detail.showcase ? <ProductionShowcase title={detail.title} showcase={detail.showcase} /> : null}
 
           <article className="animate-fadeUp rounded-[1.25rem] border border-[#2e5f93]/25 bg-[#071426]/72 p-4 shadow-card sm:p-6">
             <ReactMarkdown

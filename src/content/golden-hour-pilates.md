@@ -2,7 +2,7 @@
 
 Golden Hour Pilates already had a distinctive identity. The opportunity was not to replace it, but to turn that identity into a clearer digital customer journey.
 
-I audited the studio's existing Squarespace homepage, designed a conversion-focused alternative, and rebuilt the concept as a responsive React application. The work remained separate from the live website.
+I audited the studio's existing Squarespace homepage, designed a conversion-focused alternative, rebuilt it as a responsive React application, and supported its launch as the studio's production website.
 
 ## The problem
 
@@ -28,7 +28,7 @@ I used the official Golden Hour logo system and exact palette: Tangerine, Mahoga
 
 ### Build a journey
 
-The redesign guides visitors from value proposition to class fit, introductory offer, live schedule, first-visit guidance, location, FAQs, and direct contact actions.
+The redesign guides visitors from value proposition to class fit, introductory offer, live schedule, first-visit guidance, location, FAQs, and direct contact actions. Later iterations strengthened the introductory-offer journey, calls to action, class information, and studio details.
 
 ### Design mobile-first
 
@@ -36,18 +36,22 @@ Layouts collapse deliberately, controls remain touch-friendly, content stays rea
 
 ## Implementation
 
-- component-based React 19 and Vite architecture
+- component-based React and Vite architecture
 - responsive CSS with reusable brand tokens
 - interactive class-intent matcher
 - accessible animated FAQ accordion
-- live Momence schedule integration
+- live Mindbody schedule and booking integration
+- persistent mobile quick-booking bar for timetable and offer access
 - embedded map and direct directions action
 - click-to-call, email, Instagram, and Facebook actions
 - semantic headings, metadata, local-business structured data, and descriptive alternative text
 - reduced-motion support and keyboard focus states
+- production deployment through Vercel with a custom domain
 
 ## Outcome
 
-The finished concept is a fuller, more purposeful studio experience. It retains Golden Hour's bold visual personality while making the offer, timetable, location, beginner guidance, and next actions easier to understand.
+The launched website is a fuller, more purposeful studio experience. It retains Golden Hour's bold visual personality while making the offer, timetable, location, beginner guidance, and next actions easier to understand across desktop and mobile.
 
-This is a portfolio concept based on the studio's public site and supplied brand assets. It does not claim measured conversion gains or represent a replacement of the live Squarespace website.
+The comparison below preserves the original Squarespace homepage as the baseline and shows the current production redesign. No unmeasured conversion gains are claimed.
+
+[View the live Golden Hour Pilates website](https://www.goldenhourpilates.com.au)
