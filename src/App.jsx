@@ -35,7 +35,7 @@ const certifications = [
   },
 ];
 
-const projects = [
+const allWork = [
   {
     title: "Bunkerify",
     category: "Cybersecurity Platform",
@@ -184,6 +184,21 @@ const projects = [
   },
 ];
 
+const clientExperienceTitles = new Set([
+  "Golden Hour Pilates Website Redesign",
+  "JZ Tech Web Studio",
+  "JZ Supports & Maintenance Website",
+]);
+
+const clientExperience = allWork.filter((item) => clientExperienceTitles.has(item.title));
+const projects = allWork.filter((item) => !clientExperienceTitles.has(item.title));
+
+const experienceReadMoreMap = {
+  "Golden Hour Pilates Website Redesign": "/experience/golden-hour-pilates",
+  "JZ Tech Web Studio": "/experience/jz-tech",
+  "JZ Supports & Maintenance Website": "/experience/jzsm",
+};
+
 const projectDetailPages = {
   "incident-console": {
     title: "Production Support Incident Console",
@@ -304,9 +319,9 @@ const cybersecurityTools = [
   "Firewall Configuration",
 ];
 
-function Panel({ title, icon, children, className = "" }) {
+function Panel({ title, icon, children, className = "", id }) {
   return (
-    <section className={`relative overflow-hidden rounded-[1.35rem] border border-[#2e5f93]/30 bg-[#0d2138]/72 p-4 shadow-soft backdrop-blur-xl before:absolute before:inset-x-6 before:top-0 before:h-px before:bg-gradient-to-r before:from-transparent before:via-[#c7a65a]/45 before:to-transparent sm:p-6 ${className}`}>
+    <section id={id} className={`relative overflow-hidden rounded-[1.35rem] border border-[#2e5f93]/30 bg-[#0d2138]/72 p-4 shadow-soft backdrop-blur-xl before:absolute before:inset-x-6 before:top-0 before:h-px before:bg-gradient-to-r before:from-transparent before:via-[#c7a65a]/45 before:to-transparent sm:p-6 ${className}`}>
       <h2 className="relative font-heading text-xl font-bold tracking-[-0.025em] text-slate-50 sm:text-2xl">
         <span className="mr-2">{icon}</span>
         {title}
@@ -468,11 +483,30 @@ function OverviewPage() {
           </ul>
         </Panel>
 
-        <Panel title="Experience" icon={"\u{1F91D}"} className="lg:col-span-12">
-          <div className="grid gap-4 md:grid-cols-2">
-            {volunteer.map((item) => (
-              <Card key={item.title} title={item.title} subtitle={`${item.org} | ${item.dates}`} points={item.points} />
-            ))}
+        <Panel title="Experience" icon={"\u{1F91D}"} className="lg:col-span-12" id="experience">
+          <div>
+            <h3 className="text-xs font-black uppercase tracking-[0.18em] text-[#c7a65a]">Live client engagements</h3>
+            <div className="mt-3 grid gap-4 md:grid-cols-2">
+              {clientExperience.map((item) => (
+                <Card
+                  key={item.title}
+                  title={item.title}
+                  subtitle={item.category}
+                  links={item.website ? [{ label: "Website", href: item.website }] : []}
+                  techStack={item.techStack}
+                  points={item.points}
+                  readMorePath={experienceReadMoreMap[item.title]}
+                />
+              ))}
+            </div>
+          </div>
+          <div className="pt-2">
+            <h3 className="text-xs font-black uppercase tracking-[0.18em] text-[#c7a65a]">Previous web development roles</h3>
+            <div className="mt-3 grid gap-4 md:grid-cols-2">
+              {volunteer.map((item) => (
+                <Card key={item.title} title={item.title} subtitle={`${item.org} | ${item.dates}`} points={item.points} />
+              ))}
+            </div>
           </div>
         </Panel>
       </main>
@@ -484,9 +518,6 @@ function ProjectsPage() {
   const readMoreMap = {
     "Production Support Incident Console": "/projects/incident-console",
     "Job Application Assistant": "/projects/job-application-assistant",
-    "Golden Hour Pilates Website Redesign": "/projects/golden-hour-pilates",
-    "JZ Tech Web Studio": "/projects/jz-tech",
-    "JZ Supports & Maintenance Website": "/projects/jzsm",
   };
 
   return (
@@ -611,7 +642,10 @@ function ProjectDetailPage() {
     );
   }
 
-  const project = projects.find((item) => item.title === detail.title);
+  const project = allWork.find((item) => item.title === detail.title);
+  const isClientExperience = clientExperienceTitles.has(detail.title);
+  const backPath = isClientExperience ? "/#experience" : "/projects";
+  const backLabel = isClientExperience ? "Experience" : "Projects";
   const externalLinks = [
     ...(project?.repo ? [{ label: "GitHub", href: project.repo }] : []),
     ...(project?.website ? [{ label: "Live Site", href: project.website }] : []),
@@ -620,9 +654,9 @@ function ProjectDetailPage() {
   return (
     <>
       <main className="mt-6 grid gap-4 sm:mt-8 sm:gap-6">
-        <Panel title="Project Detail" icon={"🧾"}>
-          <Link to="/projects" className="inline-flex items-center text-sm font-semibold text-[#c7a65a] hover:text-blue-100">
-            ← Back to Projects
+        <Panel title={isClientExperience ? "Experience Detail" : "Project Detail"} icon={"🧾"}>
+          <Link to={backPath} className="inline-flex items-center text-sm font-semibold text-[#c7a65a] hover:text-blue-100">
+            ← Back to {backLabel}
           </Link>
 
           <h1 className="font-heading text-2xl font-bold tracking-[-0.035em] text-slate-50 sm:text-3xl">{detail.title}</h1>
@@ -691,6 +725,7 @@ export default function App() {
         <Route path="/" element={<OverviewPage />} />
         <Route path="/projects" element={<ProjectsPage />} />
         <Route path="/projects/:slug" element={<ProjectDetailPage />} />
+        <Route path="/experience/:slug" element={<ProjectDetailPage />} />
       </Routes>
       <Footer />
     </div>
