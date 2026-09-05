@@ -1,12 +1,16 @@
 # Mobeen Khan Portfolio
 
-I am Mobeen Khan, a Computer Science Master's graduate specialising in cybersecurity, based in Australia. This site is my public portfolio and a focused snapshot of the work I do.
+I am Mobeen Khan, an Australia-based developer with a background in software engineering and cybersecurity. This site is my public portfolio and a focused snapshot of the work I do.
 
 Live site: **https://www.mobeenkhan.com/**
 
 ## What This Site Covers
 
-The portfolio brings together my cybersecurity projects, core technical skills, professional experience, and certifications in one place so recruiters, teams, and collaborators can quickly assess my background.
+The portfolio is designed for employers and potential project collaborators. A warm editorial homepage leads with six visual case studies, with a filterable archive, background page, and audience-specific contact links.
+
+Featured work: Golden Hour Pilates, JZ Tech, JZ Supports & Maintenance, Khan Security Testing, Bunkerify, and the Production Support Incident Console. All six are also selectable in the homepage hero.
+
+Project records live in `src/content/portfolio.js`; case-study narratives live alongside them as Markdown. Existing `/experience/:slug` hash routes are preserved. Desktop/mobile screenshot controls, route focus management, keyboard navigation and reduced-motion support are included. Homepage scroll entrances use IntersectionObserver and the Web Animations API without a new dependency. They run once per visit, leave content visible by default, cancel for keyboard focus, and respond to changes in reduced-motion preferences.
 
 ## Tech Stack
 

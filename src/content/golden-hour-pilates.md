@@ -40,7 +40,7 @@ Layouts collapse deliberately, controls remain touch-friendly, content stays rea
 - responsive CSS with reusable brand tokens
 - interactive class-intent matcher
 - accessible animated FAQ accordion
-- live Mindbody schedule and booking integration
+- class schedule and booking integration
 - persistent mobile quick-booking bar for timetable and offer access
 - embedded map and direct directions action
 - click-to-call, email, Instagram, and Facebook actions
@@ -52,6 +52,6 @@ Layouts collapse deliberately, controls remain touch-friendly, content stays rea
 
 The launched website is a fuller, more purposeful studio experience. It retains Golden Hour's bold visual personality while making the offer, timetable, location, beginner guidance, and next actions easier to understand across desktop and mobile.
 
-The comparison below preserves the original Squarespace homepage as the baseline and shows the current production redesign. No unmeasured conversion gains are claimed.
+The comparison above preserves the original Squarespace homepage as the baseline alongside captured views of the redesign. No unmeasured conversion gains are claimed.
 
 [View the live Golden Hour Pilates website](https://www.goldenhourpilates.com.au)

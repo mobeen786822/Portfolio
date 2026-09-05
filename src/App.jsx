@@ -1,733 +1,922 @@
+import { useEffect, useRef, useState } from "react";
+import { useScrollMotion } from "./useScrollMotion";
+import {
+  Link,
+  NavLink,
+  Route,
+  Routes,
+  useLocation,
+  useParams,
+} from "react-router";
 import ReactMarkdown from "react-markdown";
 import remarkGfm from "remark-gfm";
-import { Link, NavLink, Route, Routes, useParams } from "react-router";
-import incidentConsoleWriteup from "./content/incident-console.md?raw";
-import jobApplicationAssistantWriteup from "./content/job-application-assistant.md?raw";
-import goldenHourWriteup from "./content/golden-hour-pilates.md?raw";
-import jzTechWriteup from "./content/jz-tech.md?raw";
-import jzsmWriteup from "./content/jzsm.md?raw";
+import {
+  allWork,
+  education,
+  certifications,
+  volunteer,
+  skillCategories,
+  cybersecurityTools,
+} from "./content/portfolio";
+import incident from "./content/incident-console.md?raw";
+import assistant from "./content/job-application-assistant.md?raw";
+import golden from "./content/golden-hour-pilates.md?raw";
+import jztech from "./content/jz-tech.md?raw";
+import jzsm from "./content/jzsm.md?raw";
+import khan from "./content/khan-security-testing.md?raw";
+import bunkerify from "./content/bunkerify.md?raw";
 
-const contact = [
-  { label: "\u{1F4E7} Email", display: "Email: mobeenk89@gmail.com", href: "mailto:mobeenk89@gmail.com" },
-  { label: "\u{1F512} Bunkerify", display: "Bunkerify", href: "https://www.bunkerify.com" },
-  { label: "\u{1F4BB} GitHub", display: "GitHub", href: "https://github.com/mobeen786822" },
-  { label: "\u{1F517} LinkedIn", display: "LinkedIn", href: "https://www.linkedin.com/in/mobeen-khan-6b3340197" },
+const mail = "mailto:mobeenk89@gmail.com";
+const descriptions = [
+  [
+    "bunkerify",
+    "Security, with a starting point.",
+    "A self-assessment platform that turns complex security questions into a clearer next step.",
+    "/images/bunkerify.png",
+    "Security & AI",
+    "Product design · Full-stack development",
+    bunkerify,
+  ],
+  [
+    "job-application-assistant",
+    "Less admin. More opportunity.",
+    "An AI-assisted resume workflow with private user workspaces and export-ready documents.",
+    "/images/resume-tailor.png",
+    "Applications",
+    "Full-stack development · AI integration",
+    assistant,
+  ],
+  [
+    "local-llm-benchmark",
+    "Small models. Real tradeoffs.",
+    "An offline benchmark exploring speed, reliability and quality on a CPU-only machine.",
+    null,
+    "Security & AI",
+    "Python · Evaluation design",
+  ],
+  [
+    "cyber-content-bot",
+    "From security feeds to useful drafts.",
+    "A review-first content pipeline bringing vulnerability news and AI research into one dashboard.",
+    null,
+    "Security & AI",
+    "Full-stack development · Automation",
+  ],
+  [
+    "llm-security-tester",
+    "Put model boundaries to the test.",
+    "An extensible test harness for exploring prompt injection and other LLM failure modes.",
+    null,
+    "Security & AI",
+    "Application security · AI evaluation",
+  ],
+  [
+    "web-vulnerability-scanner",
+    "Make findings easier to act on.",
+    "A web scanner that brings severity, evidence and remediation into a single interface.",
+    null,
+    "Security & AI",
+    "Application security · Full-stack development",
+  ],
+  [
+    "incident-console",
+    "Order in the middle of an incident.",
+    "A production-support simulation, from initial triage to documented root-cause analysis.",
+    "/images/Production-Support-Console.png",
+    "Applications",
+    "Full-stack development · Workflow design",
+    incident,
+  ],
+  [
+    "golden-hour-pilates",
+    "A stronger digital first impression.",
+    "A bold studio identity, translated into a more intuitive class-discovery and booking journey.",
+    "/images/golden-hour/after-desktop.png",
+    "Websites",
+    "UX design · Frontend development",
+    golden,
+  ],
+  [
+    "jz-tech",
+    "A studio identity, built for the web.",
+    "An editorial website bringing brand, services and a clear enquiry journey together.",
+    "/images/jztech/desktop.png",
+    "Websites",
+    "Brand implementation · Web development",
+    jztech,
+  ],
+  [
+    "jzsm",
+    "Different needs. Clearer pathways.",
+    "A seven-page service website designed around clarity, accessibility and everyday usability.",
+    "/images/jzsm/desktop.png",
+    "Websites",
+    "Information architecture · Web development",
+    jzsm,
+  ],
+  [
+    "cancer-awareness-app",
+    "Useful information, closer to hand.",
+    "A cross-platform awareness app with educational content and privacy-conscious user journeys.",
+    null,
+    "Applications",
+    "Mobile development",
+  ],
 ];
-
-const education = [
-  {
-    title: "Bachelor of Computer Science",
-    place: "University of Wollongong",
-    dates: "Jan 2021 - May 2024",
-    detail: "Major in Software Engineering and Cybersecurity",
-  },
-  {
-    title: "Masters of Computer Science (Cybersecurity)",
-    place: "University of Wollongong",
-    dates: "Mar 2025 - Present",
-  },
-];
-
-const certifications = [
-  {
-    title: "AWS Academy Cloud Foundations",
-    issuer: "AWS Academy",
-  },
-];
-
-const allWork = [
-  {
-    title: "Bunkerify",
-    category: "Cybersecurity Platform",
-    website: "https://www.bunkerify.com",
-    techStack: ["Next.js", "Supabase", "Vercel", "SendGrid", "Tailwind CSS", "Web Vulnerability Scanner"],
-    points: [
-      "Built and deployed Bunkerify on Vercel using Next.js, Supabase (PostgreSQL + auth), and SendGrid for transactional email delivery.",
-      "Designed a custom scoring engine from scratch mapping 19 assessment questions to ACSC Essential Eight categories with weighted Maturity Level 0-3 calculations per category.",
-      "Implemented automated HTML email reports triggered on assessment completion, delivering personalised risk breakdowns and CTAs.",
-      "Integrated Calendly booking workflow to convert assessment completions into consultations.",
-      "Deployed a live marketing funnel with a landing page and LinkedIn launch assets to drive inbound leads.",
-      "Integrated a live web vulnerability scanner into the results page — triggered after the Essential Eight assessment, with findings stored in Supabase and included in the HTML email report.",
-      "Implemented an email gate for new users prior to scanning, with direct scan access for returning authenticated users.",
-    ],
-  },
-  {
-    title: "Job Application Assistant",
-    category: "Web App",
-    repo: "https://github.com/mobeen786822/job-application-assistant",
-    techStack: ["Python", "Flask", "Flask-Session", "Supabase", "Anthropic API", "OpenAI API", "GitHub Actions"],
-    points: [
-      "Built a web app that tailors resumes from job descriptions and exports PDF/HTML.",
-      "Implemented OpenAI-powered content tailoring with strict no-fabrication rules.",
-      "Added private access via VPN-only deployment (Tailscale) on a cloud VM.",
-      "Added UI preview, download actions, and loading feedback.",
-      "Built a GitHub Actions CI/CD security pipeline using Bandit, Semgrep, Gitleaks, and pip-audit.",
-      "Identified and resolved a medium-severity Bandit finding related to an interface binding vulnerability.",
-      "Extended into a multi-user SaaS with Supabase Auth, server-side sessions, and a per-user dashboard tracking generation history",
-      "Implemented server-side monthly usage limits (10/month per user) with Supabase RLS-enforced data isolation.",
-    ],
-  },
-  {
-    title: "Local LLM Benchmark — Ollama",
-    category: "AI Engineering",
-    repo: "https://github.com/mobeen786822/local-llm-benchmark",
-    techStack: ["Python", "Ollama", "Llama 3.2", "Phi-3 Mini", "Gemma 2", "Ubuntu"],
-    points: [
-      "Benchmarked Llama 3.2, Phi-3 Mini, and Gemma 2 running entirely offline via Ollama on a CPU-only Ubuntu VM across 4 task types — documenting speed, reliability, and quality tradeoffs for local inference.",
-      "Identified task-specific failure modes including timeouts that would not surface in quality-only evaluations.",
-      "Designed a Python benchmarking script evaluating all 3 models across 4 task types (summarisation, JSON extraction, code generation, and multi-step reasoning) — 12 data points total.",
-      "Documented speed vs quality tradeoffs: Gemma 2 fastest at 4.8 tok/s, Llama 3.2 most reliable (4/4 tasks), Phi-3 Mini best code quality but unreliable on structured output.",
-    ],
-  },
-  {
-    title: "Cyber Content Bot",
-    category: "AI Engineering",
-    repo: "https://github.com/mobeen786822/cyber-content-bot",
-    website: "https://cyber-content-bot-ui.onrender.com",
-    techStack: ["Python", "Flask", "React", "TypeScript", "Vite", "Tailwind CSS", "Anthropic Claude API"],
-    points: [
-      "An automated cybersecurity content pipeline that aggregates HIGH/CRITICAL CVEs from NVD, actively exploited vulnerabilities from CISA KEV, and AI security research from arXiv - then uses Claude Haiku to draft LinkedIn posts for weekly review. Features tone control, on-demand triggering, and a React/TypeScript dashboard.",
-      "Aggregates data from three sources concurrently — NVD API (CVSS ≥ 7.0), CISA Known Exploited Vulnerabilities feed, and arXiv AI security papers — filtered to the past 7 days.",
-      "Supports three generation tones (professional, conversational, technical) with one-click regeneration using the same fetched data.",
-      "Resolved 6 CVEs in dependencies (Flask, Flask-CORS, Requests) and a HIGH severity Bandit B201 finding surfaced by the CI/CD security pipeline.",
-    ],
-  },
-  {
-    title: "LLM Security Tester",
-    category: "AppSec",
-    repo: "https://github.com/mobeen786822/-llm-security-tester",
-    techStack: ["Python", "Flask", "React", "Vite", "Tailwind CSS", "Ollama", "Anthropic API"],
-    points: [
-      "A full-stack tool that probes LLMs for prompt injection, jailbreaking, system prompt extraction, data exfiltration, and role confusion attacks across 15 test cases.",
-      "Compared Llama 3.2 vs Claude Haiku - Llama achieved 15/15 resistant while Haiku returned 3 failures and 5 partials on HIGH severity attacks.",
-      "Built a React/Tailwind dashboard with per-category breakdowns, severity badges, expandable prompt/response rows, and JSON report export.",
-      "Designed an extensible JSON attack library so new test cases and categories can be added without modifying backend or frontend code.",
-    ],
-  },
-  {
-    title: "Web Vulnerability Scanner",
-    category: "AppSec",
-    website: "https://web-vulnerability-scanner-lqy5.onrender.com/",
-    techStack: ["Python", "Flask", "React", "Vite", "Tailwind CSS", "GitHub Actions"],
-    points: [
-      "A full-stack web vulnerability scanner with 6 scanner modules covering security headers, SSL/TLS, sensitive path exposure, cookie flags, open redirects, and information disclosure. Supports single and batch URL scanning with concurrent execution, a severity-coded React dashboard, and client-side JSON report export.",
-      "Implements concurrent URL scanning via ThreadPoolExecutor with a shared requests.Session per URL for efficiency — supports single and batch scan modes.",
-      "Each finding includes a severity rating (CRITICAL/HIGH/MEDIUM/LOW/INFO), status badge, detail, and remediation recommendation.",
-      "CI/CD security pipeline with Bandit SAST, Gitleaks secrets detection, and pip-audit dependency scanning with fail-gate on HIGH findings.",
-    ],
-  },
-  {
-    title: "Production Support Incident Console",
-    category: "Operations Simulation",
-    repo: "https://github.com/mobeen786822/Production-Support-Incident-Console",
-    website: "https://incident-console-ui.onrender.com/",
-    techStack: ["React", "TypeScript", "FastAPI", "Python", "SQLAlchemy", "Docker", "JWT", "GitHub Actions"],
-    points: [
-      "Built a web-based incident management console to simulate production support workflows end-to-end.",
-      "Implemented incident lifecycle tracking with severity, status transitions, ownership, and event timelines.",
-      "Added SLA-aware monitoring with breach indicators to support prioritisation and response quality.",
-      "Implemented runbook and root-cause analysis capture to improve incident resolution consistency.",
-      "Implemented a full-stack security pipeline across Python (Bandit, pip-audit) and JavaScript (npm audit, Gitleaks).",
-      "Discovered and resolved 8 CVEs in backend dependencies through targeted remediation and dependency upgrades.",
-      "Replaced python-jose with PyJWT due to an unresolvable vulnerability chain and migrated the authentication implementation.",
-      "Resolved a high-severity frontend vulnerability by upgrading affected dependencies.",
-    ],
-  },
-  {
-    title: "Golden Hour Pilates Website Redesign",
-    category: "Client Website and Production Launch",
-    website: "https://www.goldenhourpilates.com.au",
-    techStack: ["React", "Vite", "JavaScript", "CSS", "Mindbody", "Vercel", "Accessibility", "Local SEO"],
-    points: [
-      "Audited the existing Squarespace homepage and translated its strong identity into a clearer, conversion-focused customer journey.",
-      "Rebuilt and launched the production website as a responsive React application using the studio's official identity, photography, and live Mindbody schedule.",
-      "Strengthened the introductory-offer journey with clearer calls to action, persistent mobile booking access, class discovery, beginner guidance, FAQs, and direct contact actions.",
-      "Implemented semantic structure, reduced-motion support, keyboard focus states, local-business metadata, responsive QA, and a production Vercel deployment.",
-    ],
-  },
-  {
-    title: "JZ Tech Web Studio",
-    category: "Business Website and Brand System",
-    website: "https://www.jztech.com.au",
-    techStack: ["Next.js", "React", "TypeScript", "Tailwind CSS", "Vercel", "GitHub Actions", "Accessibility", "Technical SEO"],
-    points: [
-      "Designed and launched a production website for an Australian web studio, translating its brand foundation into a distinctive dark editorial interface.",
-      "Structured the customer journey around services, delivery process, maintenance, proof, FAQs, and a direct enquiry path.",
-      "Implemented a responsive cinematic hero with poster, mobile, reduced-motion, and data-saving fallbacks.",
-      "Built portable brand tokens, automated WCAG contrast checks, semantic metadata, structured data, CI validation, and a production Vercel deployment.",
-    ],
-  },
-  {
-    title: "JZ Supports & Maintenance Website",
-    category: "Multi-page Service Website",
-    website: "https://www.jzsm.com.au",
-    techStack: ["Next.js", "React", "TypeScript", "Tailwind CSS", "Relume", "shadcn/ui", "Radix UI", "Vercel", "Accessibility"],
-    points: [
-      "Designed and launched a seven-route website for a practical support and home-maintenance provider.",
-      "Built distinct service journeys for NDIS supports, injury recovery, cleaning, lawns and maintenance, company information, and enquiries.",
-      "Adapted genuine Relume components into an editable local component system using shadcn/Radix foundations and project-specific design tokens.",
-      "Implemented accessible navigation, motion safeguards, funding disclaimers, semantic metadata, responsive QA, and production Vercel hosting.",
-    ],
-  },
-  {
-    title: "Cancer Awareness Mobile App",
-    category: "Mobile App",
-    repoNote: "Private repo - available on request.",
-    techStack: ["React Native", "TypeScript", "Firebase"],
-    points: [
-      "Built a cross-platform mobile app using React Native and TypeScript.",
-      "Implemented Firebase integration for authentication, cloud data storage, and messaging workflows.",
-      "Added geolocation and media upload capabilities with structured in-app navigation.",
-      "Built educational and awareness-focused user journeys with clear call-to-action screens and reminders.",
-      "Focused on privacy-conscious data handling for sensitive health-related user interactions.",
-    ],
-  },
-];
-
-const clientExperienceTitles = new Set([
-  "Golden Hour Pilates Website Redesign",
-  "JZ Tech Web Studio",
-  "JZ Supports & Maintenance Website",
-]);
-
-const clientExperience = allWork.filter((item) => clientExperienceTitles.has(item.title));
-const projects = allWork.filter((item) => !clientExperienceTitles.has(item.title));
-
-const experienceReadMoreMap = {
-  "Golden Hour Pilates Website Redesign": "/experience/golden-hour-pilates",
-  "JZ Tech Web Studio": "/experience/jz-tech",
-  "JZ Supports & Maintenance Website": "/experience/jzsm",
-};
-
-const projectDetailPages = {
-  "incident-console": {
-    title: "Production Support Incident Console",
-    markdown: incidentConsoleWriteup,
-  },
-  "job-application-assistant": {
-    title: "Job Application Assistant",
-    markdown: jobApplicationAssistantWriteup,
-  },
-  "golden-hour-pilates": {
-    title: "Golden Hour Pilates Website Redesign",
-    markdown: goldenHourWriteup,
-    comparison: {
-      desktop: {
-        before: "/images/golden-hour/before-desktop.png",
-        after: "/images/golden-hour/after-desktop.png",
-        beforeFull: "/images/golden-hour/before-desktop-full.png",
-        afterFull: "/images/golden-hour/after-desktop-full.png",
-      },
-      mobile: {
-        before: "/images/golden-hour/before-mobile.png",
-        after: "/images/golden-hour/after-mobile.png",
-        beforeFull: "/images/golden-hour/before-mobile-full.png",
-        afterFull: "/images/golden-hour/after-mobile-full.png",
-      },
-    },
-  },
-  "jz-tech": {
-    title: "JZ Tech Web Studio",
-    markdown: jzTechWriteup,
-    showcase: {
-      desktop: "/images/jztech/desktop.png",
-      mobile: "/images/jztech/mobile.png",
-    },
-  },
-  "jzsm": {
-    title: "JZ Supports & Maintenance Website",
-    markdown: jzsmWriteup,
-    showcase: {
-      desktop: "/images/jzsm/desktop.png",
-      mobile: "/images/jzsm/mobile.png",
-    },
-  },
-};
-
-const volunteer = [
-  {
-    title: "Web Developer (catchadrive.com)",
-    org: "Catch a Drive",
-    dates: "Nov 2025 - Jan 2026",
-    points: [
-      "Delivered front-end and back-end features for the Catch a Drive platform across booking and user-flow pages.",
-      "Built responsive UI components for mobile and desktop to improve navigation clarity and completion flow.",
-      "Integrated API-backed functionality for dynamic content and user actions, reducing manual content handling.",
-    ],
-  },
-  {
-    title: "Web Developer (Hentley.co)",
-    org: "Hentley",
-    dates: "Jan 2018 - Mar 2019",
-    points: [
-      "Implemented custom storefront components to improve product discovery and shopper navigation.",
-      "Supported server-side functionality for product rendering, checkout-adjacent workflows, and content updates.",
-      "Refined responsive layouts and styling to maintain consistent UX across mobile, tablet, and desktop.",
-    ],
-  },
-];
-
-const skillCategories = [
-  {
-    name: "Core Engineering",
-    items: [
-      "React",
-      "TypeScript",
-      "Vite",
-      "Tailwind CSS",
-      "React Native",
-      "Next.js",
-      "JavaScript",
-      "Node.js",
-      "Flask",
-      "FastAPI",
-      "Docker",
-      "Supabase",
-      "SQLAlchemy",
-      "Nginx",
-      "Firebase",
-      "REST API Integration",
-      "Jest",
-      "React Testing Library",
-      "Cybersecurity",
-      "Networking",
-      "SQL",
-      "NoSQL",
-      "Python",
-      "Java",
-      "C++",
-    ],
-  },
-  {
-    name: "DevSecOps",
-    items: ["GitHub Actions", "Bandit", "Semgrep", "Gitleaks", "pip-audit", "npm audit", "SAST", "dependency scanning", "secrets detection"],
-  },
-];
-
-const cybersecurityTools = [
-  "Kali Linux",
-  "Nmap",
-  "Metasploit",
-  "Wireshark",
-  "Burp Suite",
-  "Penetration Testing",
-  "Vulnerability Assessment",
-  "Incident Response",
-  "Threat Intelligence",
-  "Network Segmentation",
-  "Log Analysis",
-  "Firewall Configuration",
-];
-
-function Panel({ title, icon, children, className = "", id }) {
+const work = allWork.map((item) => {
+  const [slug, headline, summary, image, type, role, markdown] =
+    descriptions.find(([id]) => id === item.slug);
+  return { ...item, slug, headline, summary, image, type, role, markdown };
+});
+work.push({
+  title: "Khan Security Testing",
+  slug: "khan-security-testing",
+  headline: "Security expertise, clearly communicated.",
+  summary:
+    "A security-services website designed to make testing, scope and the next step easier to understand.",
+  image: "/images/khan-security-testing.png",
+  type: "Websites",
+  role: "Website design · Frontend development",
+  website: "https://www.khansecuritytesting.com",
+  techStack: ["React", "TypeScript", "Tailwind CSS"],
+  markdown: khan,
+  points: [],
+});
+const featured = [
+  "golden-hour-pilates",
+  "jz-tech",
+  "jzsm",
+  "khan-security-testing",
+  "bunkerify",
+  "incident-console",
+].map((slug) => work.find((item) => item.slug === slug));
+const titleFor = (item) =>
+  item.slug === "golden-hour-pilates"
+    ? "Golden Hour Pilates"
+    : item.slug === "incident-console"
+      ? "Incident Console"
+      : item.slug === "jz-tech"
+        ? "JZ Tech"
+        : item.title;
+const pathFor = (item) => `/projects/${item.slug}`;
+function Arrow() {
+  return <span aria-hidden="true">↗</span>;
+}
+function External({ href, children, className = "" }) {
   return (
-    <section id={id} className={`relative overflow-hidden rounded-[1.35rem] border border-[#2e5f93]/30 bg-[#0d2138]/72 p-4 shadow-soft backdrop-blur-xl before:absolute before:inset-x-6 before:top-0 before:h-px before:bg-gradient-to-r before:from-transparent before:via-[#c7a65a]/45 before:to-transparent sm:p-6 ${className}`}>
-      <h2 className="relative font-heading text-xl font-bold tracking-[-0.025em] text-slate-50 sm:text-2xl">
-        <span className="mr-2">{icon}</span>
-        {title}
-      </h2>
-      <div className="mt-4 space-y-3 sm:mt-5 sm:space-y-4">{children}</div>
-    </section>
+    <a href={href} className={className} target="_blank" rel="noreferrer">
+      {children} <Arrow />
+    </a>
   );
 }
-
-function Card({ title, subtitle, points, link, linkText = "Visit", links = [], note, techStack = [], readMorePath }) {
+function SectionLabel({ number, children }) {
   return (
-    <article className="group rounded-[1.15rem] border border-[#2e5f93]/25 bg-[#071426]/72 p-3.5 shadow-card transition duration-300 hover:-translate-y-1 hover:border-[#c7a65a]/45 hover:bg-[#0d2138]/85 hover:shadow-glow sm:p-4">
-      <h3 className="font-heading text-base font-bold tracking-[-0.02em] text-slate-50 sm:text-lg">{title}</h3>
-      {subtitle ? <p className="mt-1 text-sm text-blue-100/70">{subtitle}</p> : null}
-      {techStack.length > 0 ? (
-        <ul className="mt-2 flex flex-wrap gap-1.5">
-          {techStack.map((tech) => (
-            <li key={`${title}-${tech}`} className="rounded-full border border-[#2e5f93]/35 bg-[#2e5f93]/12 px-2.5 py-1 text-xs font-bold text-blue-100">
-              {tech}
-            </li>
-          ))}
-        </ul>
-      ) : null}
-      {link ? (
-        <a className="mt-2 inline-flex items-center text-sm font-semibold text-[#c7a65a] hover:text-blue-100" href={link} target="_blank" rel="noreferrer">
-          ↗ {linkText}
-        </a>
-      ) : null}
-      {links.length > 0 ? (
-        <div className="mt-2 flex flex-wrap gap-3">
-          {links.map((item) => (
-            <a key={`${title}-${item.href}-${item.label}`} className="inline-flex items-center text-sm font-semibold text-[#c7a65a] hover:text-blue-100" href={item.href} target="_blank" rel="noreferrer">
-              ↗ {item.label}
-            </a>
-          ))}
-        </div>
-      ) : null}
-      {readMorePath ? (
-        <div className="mt-2">
-          <Link to={readMorePath} className="inline-flex items-center text-sm font-semibold text-[#c7a65a] hover:text-blue-100">
-            Read More →
-          </Link>
-        </div>
-      ) : null}
-      {note ? <p className="mt-2 text-sm text-blue-100/70">{note}</p> : null}
-      {points ? (
-        <ul className="mt-3 list-disc space-y-1.5 pl-5 text-blue-50/82 marker:text-[#c7a65a]/75">
-          {points.map((point) => (
-            <li key={point}>{point}</li>
-          ))}
-        </ul>
-      ) : null}
-    </article>
+    <p className="eyebrow">
+      <span>{number} /</span> {children}
+    </p>
   );
 }
-
-function TopBar() {
-  const navClass = ({ isActive }) =>
-    `rounded-full px-3 py-2 text-sm font-semibold transition ${
-      isActive ? "bg-[#c7a65a] text-[#071426] shadow-[0_8px_30px_-16px_rgba(199,166,90,.9)]" : "text-blue-100/75 hover:bg-[#2e5f93]/20 hover:text-white"
-    }`;
-
+function RouteEffects() {
+  const location = useLocation();
+  const previousRoute = useRef(`${location.pathname}${location.hash}`);
+  useEffect(() => {
+    const project = work.find(
+      (item) =>
+        location.pathname === `/projects/${item.slug}` ||
+        location.pathname === `/experience/${item.slug}`,
+    );
+    const pageName = project
+      ? titleFor(project)
+      : location.pathname === "/projects"
+        ? "Selected work"
+        : location.pathname === "/about"
+          ? "About"
+          : location.pathname === "/"
+            ? "Developer & creative problem solver"
+            : "Page not found";
+    document.title = `${pageName} | Mobeen Khan`;
+    document
+      .querySelector('meta[name="description"]')
+      ?.setAttribute(
+        "content",
+        project?.summary ||
+          "Mobeen Khan is an Australia-based developer building thoughtful websites, full-stack applications and practical security tools. Explore selected work and get in touch.",
+      );
+    const target = location.hash
+      ? document.getElementById(location.hash.slice(1))
+      : document.querySelector("main");
+    if (location.hash && target) target.scrollIntoView({ behavior: "instant" });
+    else window.scrollTo({ top: 0, behavior: "instant" });
+    const currentRoute = `${location.pathname}${location.hash}`;
+    if (previousRoute.current !== currentRoute) {
+      target?.focus({ preventScroll: true });
+    }
+    previousRoute.current = currentRoute;
+  }, [location.pathname, location.hash]);
+  return null;
+}
+function Header() {
   return (
-    <div className="sticky top-3 z-20 mb-4 flex items-center justify-between rounded-full border border-[#2e5f93]/35 bg-[#071426]/82 p-2 shadow-card backdrop-blur-xl sm:mb-6">
-      <span className="px-3 font-heading text-sm font-bold tracking-[-0.015em] text-slate-50 sm:text-base">Mobeen Khan</span>
-      <nav className="flex items-center gap-1">
-        <NavLink to="/" end className={navClass}>
-          Overview
-        </NavLink>
-        <NavLink to="/projects" className={navClass}>
-          Projects
-        </NavLink>
+    <header className="site-header wrap">
+      <Link className="wordmark" to="/" aria-label="Mobeen Khan home">
+        mk<span>.</span>
+      </Link>
+      <nav aria-label="Main navigation">
+        <NavLink to="/projects">Work</NavLink>
+        <NavLink to="/about">About</NavLink>
+        <Link className="nav-contact" to="/#contact">
+          Let’s talk <Arrow />
+        </Link>
       </nav>
-    </div>
-  );
-}
-
-function Hero() {
-  return (
-    <header className="relative overflow-hidden rounded-[1.6rem] border border-[#2e5f93]/35 border-b-4 border-b-[#c7a65a] bg-[linear-gradient(135deg,rgba(7,20,38,.98),rgba(13,33,56,.94)_48%,rgba(46,95,147,.48))] p-5 text-slate-50 shadow-soft sm:p-8 lg:p-10">
-      <div className="absolute -right-14 -top-14 h-56 w-56 rounded-full bg-[#2e5f93]/45 blur-3xl" aria-hidden="true" />
-      <div className="absolute -left-14 bottom-0 h-44 w-44 rounded-full bg-[#c7a65a]/14 blur-3xl" aria-hidden="true" />
-      <div className="relative flex flex-col gap-6 md:flex-row md:items-center md:justify-between">
-        <div>
-          <p className="font-heading text-xs uppercase tracking-[0.18em] text-[#c7a65a] sm:text-sm sm:tracking-[0.22em]">Cybersecurity-Focused Software Engineer</p>
-          <h1 className="mt-3 max-w-4xl font-heading text-4xl font-bold leading-[0.98] tracking-[-0.055em] sm:text-6xl">Mobeen Khan</h1>
-          <p className="mt-4 max-w-3xl text-base leading-relaxed text-blue-50/86 sm:text-lg">
-            Building and shipping secure, production-ready products from full-stack web apps to a live cybersecurity platform.
-          </p>
-          <p className="mt-3 max-w-3xl text-sm leading-relaxed text-blue-100/72 sm:text-base">
-            I care about making cybersecurity practical, not intimidating. Building Bunkerify came from seeing how many small businesses and founders wanted clear security guidance
-            but had no simple starting point. I'm driven by turning complex risk into tools people can actually use.
-          </p>
-          <div className="mt-6 grid gap-2 sm:flex sm:flex-wrap sm:gap-3">
-            {contact.map((item) => (
-              <a
-                key={item.display}
-                href={item.href}
-                target={item.href.startsWith("http") ? "_blank" : undefined}
-                rel={item.href.startsWith("http") ? "noreferrer" : undefined}
-                className="rounded-full border border-[#2e5f93]/45 bg-[#0d2138]/72 px-4 py-2.5 text-center text-xs font-black uppercase tracking-[0.12em] text-blue-50 shadow-sm transition hover:-translate-y-0.5 hover:border-[#c7a65a]/75 hover:bg-[#c7a65a] hover:text-[#071426] sm:text-left"
-              >
-                {item.display.startsWith("Email:") ? item.display : item.label}
-              </a>
-            ))}
-          </div>
-        </div>
-        <img
-          src="/images/user.png"
-          alt="Portrait of Mobeen Khan"
-          className="order-first h-36 w-36 self-center rounded-[1.25rem] border border-[#c7a65a]/35 object-cover shadow-[0_24px_80px_-30px_rgba(46,95,147,.85)] md:order-none md:h-44 md:w-44 md:self-auto"
-        />
-      </div>
     </header>
   );
 }
-
-function OverviewPage() {
+function ProjectCard({ item }) {
   return (
-    <>
-      <Hero />
-      <main className="mt-6 grid gap-4 sm:mt-8 sm:gap-6 lg:grid-cols-12">
-        <Panel title="Education" icon={"\u{1F393}"} className="lg:col-span-5">
-          {education.map((item) => (
-            <Card key={item.title} title={item.title} subtitle={`${item.place} | ${item.dates}${item.detail ? ` | ${item.detail}` : ""}`} />
-          ))}
-        </Panel>
-
-        <Panel title="Skills" icon={"\u{1F6E0}\u{FE0F}"} className="lg:col-span-7">
-          <div className="space-y-4">
-            {skillCategories.map((category) => (
-              <div key={category.name}>
-                <h3 className="text-xs font-black uppercase tracking-[0.18em] text-[#c7a65a]">{category.name}</h3>
-                <ul className="mt-2 flex flex-wrap gap-1.5 sm:gap-2">
-                  {category.items.map((skill) => (
-                    <li key={`${category.name}-${skill}`} className="rounded-full border border-[#2e5f93]/35 bg-[#2e5f93]/12 px-2.5 py-1 text-xs font-bold text-blue-100 sm:px-3 sm:py-1.5 sm:text-sm">
-                      {skill}
-                    </li>
-                  ))}
-                </ul>
-              </div>
-            ))}
+    <article
+      className={`project-card project-${item.slug}`}
+      data-scroll-motion="project"
+    >
+      <Link
+        to={pathFor(item)}
+        className="project-visual"
+        aria-label={`View ${titleFor(item)} case study`}
+      >
+        <span className="visual-index">{item.type}</span>
+        <div className="screen-frame">
+          <div className="browser-bar" aria-hidden="true">
+            <i />
+            <i />
+            <i />
+            <span>
+              {item.website
+                ? new URL(item.website).hostname.replace("www.", "")
+                : "Project preview"}
+            </span>
           </div>
-        </Panel>
-
-        <Panel title="Certifications" icon={"\u{1F3C5}"} className="lg:col-span-12">
-          {certifications.map((item) => (
-            <Card key={item.title} title={item.title} subtitle={item.issuer} />
-          ))}
-        </Panel>
-
-        <Panel title="Cybersecurity Tools" icon={"\u{1F6E1}\u{FE0F}"} className="lg:col-span-12">
-          <ul className="flex flex-wrap gap-1.5 sm:gap-2">
-            {cybersecurityTools.map((tool) => (
-              <li key={tool} className="rounded-full border border-[#2e5f93]/35 bg-[#2e5f93]/12 px-2.5 py-1 text-xs font-bold text-blue-100 sm:px-3 sm:py-1.5 sm:text-sm">
-                {tool}
-              </li>
-            ))}
-          </ul>
-        </Panel>
-
-        <Panel title="Experience" icon={"\u{1F91D}"} className="lg:col-span-12" id="experience">
-          <div>
-            <h3 className="text-xs font-black uppercase tracking-[0.18em] text-[#c7a65a]">Live client engagements</h3>
-            <div className="mt-3 grid gap-4 md:grid-cols-2">
-              {clientExperience.map((item) => (
-                <Card
-                  key={item.title}
-                  title={item.title}
-                  subtitle={item.category}
-                  links={item.website ? [{ label: "Website", href: item.website }] : []}
-                  techStack={item.techStack}
-                  points={item.points}
-                  readMorePath={experienceReadMoreMap[item.title]}
-                />
-              ))}
-            </div>
-          </div>
-          <div className="pt-2">
-            <h3 className="text-xs font-black uppercase tracking-[0.18em] text-[#c7a65a]">Previous web development roles</h3>
-            <div className="mt-3 grid gap-4 md:grid-cols-2">
-              {volunteer.map((item) => (
-                <Card key={item.title} title={item.title} subtitle={`${item.org} | ${item.dates}`} points={item.points} />
-              ))}
-            </div>
-          </div>
-        </Panel>
-      </main>
-    </>
-  );
-}
-
-function ProjectsPage() {
-  const readMoreMap = {
-    "Production Support Incident Console": "/projects/incident-console",
-    "Job Application Assistant": "/projects/job-application-assistant",
-  };
-
-  return (
-    <>
-      <Hero />
-      <main className="mt-6 grid gap-4 sm:mt-8 sm:gap-6">
-        <Panel title="Projects" icon={"\u{1F680}"}>
-          <div className="grid gap-4 md:grid-cols-2">
-            {projects.map((item) => (
-              <Card
-                key={item.title}
-                title={item.title}
-                subtitle={item.category}
-                links={[
-                  ...(item.repo ? [{ label: "GitHub", href: item.repo }] : []),
-                  ...(item.website ? [{ label: "Website", href: item.website }] : []),
-                ]}
-                techStack={item.techStack}
-                note={item.repoNote}
-                points={item.points}
-                readMorePath={readMoreMap[item.title]}
-              />
-            ))}
-          </div>
-        </Panel>
-      </main>
-    </>
-  );
-}
-
-function BeforeAfterComparison({ comparison }) {
-  return (
-    <section className="space-y-6" aria-labelledby="before-after-title">
-      <div>
-        <p className="text-xs font-black uppercase tracking-[0.18em] text-[#c7a65a]">Visual comparison</p>
-        <h2 id="before-after-title" className="mt-2 font-heading text-xl font-bold text-slate-50 sm:text-2xl">Before and after</h2>
-        <p className="mt-2 max-w-3xl leading-relaxed text-blue-50/82">Matched viewport captures show how the original brand-led page became a structured, responsive booking journey.</p>
+          <img
+            src={item.image}
+            alt={`${titleFor(item)} interface preview`}
+            loading="lazy"
+            width="1440"
+            height="900"
+          />
+        </div>
+        <span className="visual-arrow">
+          <Arrow />
+        </span>
+      </Link>
+      <div className="project-caption">
+        <div>
+          <p className="eyebrow">{item.role}</p>
+          <h3>
+            <Link to={pathFor(item)}>{titleFor(item)}</Link>
+          </h3>
+        </div>
+        <span className="caption-arrow" aria-hidden="true">
+          ↗
+        </span>
       </div>
-
-      {Object.entries(comparison).map(([viewport, images]) => (
-        <div key={viewport} className="rounded-[1.25rem] border border-[#2e5f93]/25 bg-[#071426]/72 p-3 shadow-card sm:p-4">
-          <h3 className="font-heading text-lg font-bold capitalize text-slate-50">{viewport}</h3>
-          <div className="mt-3 grid gap-3 md:grid-cols-2">
+      <p className="project-summary">{item.summary}</p>
+    </article>
+  );
+}
+function ProjectStack() {
+  const options = featured.map((item) => ({
+    label:
+      item.slug === "golden-hour-pilates"
+        ? "Golden Hour"
+        : item.slug === "jzsm"
+          ? "JZSM"
+          : item.slug === "khan-security-testing"
+            ? "KST"
+            : titleFor(item),
+    item,
+  }));
+  const [active, setActive] = useState(0);
+  const { item } = options[active];
+  return (
+    <div className="project-stack">
+      <div className="stack-stage">
+        <div className="stack-backdrop" aria-hidden="true" />
+        <div className="stack-back-sheet" aria-hidden="true">
+          <img
+            src="/images/khan-security-testing.png"
+            alt=""
+            width="1440"
+            height="1000"
+            loading="lazy"
+          />
+        </div>
+        <Link
+          className="stack-front"
+          to={pathFor(item)}
+          aria-label={`Explore ${titleFor(item)} case study`}
+        >
+          <div className="stack-browser" aria-hidden="true">
+            <span />
+            <span />
+            <span />
+            <p>{new URL(item.website).hostname.replace("www.", "")}</p>
+          </div>
+          <img
+            key={item.slug}
+            className="stack-preview"
+            src={item.image}
+            alt={`${titleFor(item)} interface`}
+            width="1440"
+            height="1000"
+            fetchPriority="high"
+          />
+          <div className="stack-caption">
+            <span>{titleFor(item)}</span>
+            <svg
+              viewBox="0 0 24 24"
+              fill="none"
+              stroke="currentColor"
+              strokeWidth="1.5"
+              aria-hidden="true"
+            >
+              <path d="M5 19 19 5M5 5h14v14" />
+            </svg>
+          </div>
+        </Link>
+        <span className="stack-mark" aria-hidden="true">
+          mk.
+        </span>
+      </div>
+      <div
+        className="stack-controls"
+        role="group"
+        aria-label="Choose a featured project preview"
+      >
+        {options.map(({ label }, index) => (
+          <button
+            key={label}
+            onClick={() => setActive(index)}
+            aria-pressed={active === index}
+          >
+            {label}
+          </button>
+        ))}
+      </div>
+      <p className="stack-status" role="status">
+        {titleFor(item)} · Explore the case study
+      </p>
+    </div>
+  );
+}
+function Home() {
+  const mainRef = useRef(null);
+  useScrollMotion(mainRef);
+  return (
+    <main ref={mainRef} id="main" tabIndex="-1">
+      <section className="hero wrap" aria-labelledby="hero-title">
+        <div className="hero-composition">
+          <div className="hero-copy">
+            <h1 id="hero-title">
+              <span className="hero-primary">
+                Thoughtful
+                <br />
+                interfaces.
+              </span>
+              <span className="hero-secondary">Solid engineering.</span>
+            </h1>
+            <div className="hero-bottom">
+              <p>
+                I’m Mobeen Khan. I turn complex problems into websites and
+                applications that feel simple to use—and are carefully built
+                underneath.
+              </p>
+              <div className="hero-actions">
+                <Link className="button primary" to="/#selected-work">
+                  Explore my work <span aria-hidden="true">↓</span>
+                </Link>
+                <Link className="text-link" to="/about">
+                  A little about me <Arrow />
+                </Link>
+              </div>
+            </div>
+            <p className="hero-signoff">
+              <span className="status-dot" />
+              Independent developer · Australia
+            </p>
+          </div>
+          <ProjectStack />
+        </div>
+        <div className="hero-foot">
+          <span>Websites / Applications / Security & AI</span>
+          <span>Good work, from first idea to final detail.</span>
+        </div>
+      </section>
+      <section
+        className="selected wrap section"
+        id="selected-work"
+        tabIndex="-1"
+        aria-labelledby="selected-title"
+      >
+        <div className="section-heading">
+          <div>
+            <h2 id="selected-title">
+              Built with
+              <br />
+              <span>purpose.</span>
+            </h2>
+          </div>
+          <Link className="text-link" to="/projects">
+            All projects <Arrow />
+          </Link>
+        </div>
+        <div className="project-grid">
+          {featured.map((item) => (
+            <ProjectCard item={item} key={item.slug} />
+          ))}
+        </div>
+        <div className="more-work">
+          <p>More to explore</p>
+          <Link to="/projects/job-application-assistant">
+            Job Application Assistant <Arrow />
+          </Link>
+        </div>
+      </section>
+      <section className="approach section" aria-labelledby="approach-title">
+        <div className="wrap approach-layout">
+          <div>
+            <SectionLabel number="02">How I work</SectionLabel>
+            <h2 id="approach-title">
+              The details make
+              <br />
+              the difference<span>.</span>
+            </h2>
+            <p>
+              Clear thinking, considered design and engineering that goes beyond
+              the happy path.
+            </p>
+          </div>
+          <div className="principles">
             {[
-              { label: "Before", src: images.before, full: images.beforeFull },
-              { label: "After", src: images.after, full: images.afterFull },
-            ].map((image) => (
-              <figure key={`${viewport}-${image.label}`} className="overflow-hidden rounded-xl border border-[#2e5f93]/30 bg-[#020814]">
-                <figcaption className="flex items-center justify-between border-b border-[#2e5f93]/25 px-3 py-2">
-                  <span className="text-xs font-black uppercase tracking-[0.16em] text-blue-100">{image.label}</span>
-                  <a className="text-xs font-semibold text-[#c7a65a] hover:text-blue-100" href={image.full} target="_blank" rel="noreferrer">View full page ↗</a>
-                </figcaption>
-                <a href={image.src} target="_blank" rel="noreferrer" aria-label={`Open ${viewport} ${image.label.toLowerCase()} screenshot`}>
-                  <img
-                    src={image.src}
-                    alt={`${image.label} ${viewport} view of the Golden Hour Pilates homepage`}
-                    className={`w-full object-cover object-top ${viewport === "mobile" ? "aspect-[390/844]" : "aspect-[36/25]"}`}
-                    loading="lazy"
-                  />
-                </a>
-              </figure>
+              [
+                "Understand the real problem.",
+                "Start with the people using it, the task they need to finish, and the constraints that actually matter.",
+              ],
+              [
+                "Make the complex feel simple.",
+                "Give content a clear hierarchy. Make the next step obvious. Build for small screens and different ways of navigating.",
+              ],
+              [
+                "Build it properly.",
+                "Think through authentication, error states, accessibility and maintainability—not just how the homepage looks.",
+              ],
+            ].map(([title, text], i) => (
+              <article
+                key={title}
+                data-scroll-motion="step"
+                data-motion-order={i}
+              >
+                <span className="eyebrow">0{i + 1}</span>
+                <div>
+                  <h3>{title}</h3>
+                  <p>{text}</p>
+                </div>
+              </article>
             ))}
           </div>
         </div>
-      ))}
+      </section>
+      <section
+        className="wrap section about-teaser"
+        aria-labelledby="about-title"
+      >
+        <div className="portrait-frame" data-scroll-motion="portrait">
+          <img
+            src="/images/user.png"
+            alt="Mobeen Khan"
+            width="400"
+            height="460"
+            loading="lazy"
+          />
+          <span>Developer. Curious by default.</span>
+        </div>
+        <div data-scroll-motion="copy">
+          <SectionLabel number="03">A little about me</SectionLabel>
+          <h2 id="about-title">
+            A builder with a<br />
+            security mindset.
+          </h2>
+          <p>
+            I’m an Australia-based developer working across full-stack
+            applications, websites and practical security tools. I like
+            understanding how things work—and making them work better for the
+            people using them.
+          </p>
+          <p>
+            My background spans software engineering and cybersecurity. That
+            combination shapes how I approach everything from a booking journey
+            to an API.
+          </p>
+          <Link className="text-link" to="/about">
+            My background & experience <Arrow />
+          </Link>
+        </div>
+      </section>
+      <Contact />
+    </main>
+  );
+}
+function Contact() {
+  return (
+    <section
+      className="contact-section"
+      id="contact"
+      tabIndex="-1"
+      aria-labelledby="contact-title"
+    >
+      <div className="wrap">
+        <SectionLabel number="04">What’s next?</SectionLabel>
+        <div className="contact-heading" data-scroll-motion="copy">
+          <h2 id="contact-title">
+            Let’s make
+            <br />
+            something good<span>.</span>
+          </h2>
+          <span className="contact-spark" aria-hidden="true">
+            ↗
+          </span>
+        </div>
+        <div className="contact-options">
+          <a
+            href={`${mail}?subject=Let%E2%80%99s%20talk%20about%20a%20project`}
+          >
+            <span className="eyebrow">For businesses & collaborators</span>
+            <h3>
+              Have a project in mind? <Arrow />
+            </h3>
+            <p>Let’s talk about your website, application or next idea.</p>
+          </a>
+          <a
+            href={`${mail}?subject=Let%E2%80%99s%20talk%20about%20an%20opportunity`}
+          >
+            <span className="eyebrow">For teams & employers</span>
+            <h3>
+              Looking for a developer? <Arrow />
+            </h3>
+            <p>I’d love to hear about the role and what you’re building.</p>
+          </a>
+        </div>
+      </div>
     </section>
   );
 }
-
-function ProductionShowcase({ title, showcase }) {
-  const views = [
-    { key: "desktop", label: "Desktop", src: showcase.desktop, className: "aspect-[36/25]" },
-    { key: "mobile", label: "Mobile", src: showcase.mobile, className: "aspect-[390/844]" },
-  ];
-
+function Projects() {
+  const [filter, setFilter] = useState("All work");
+  const visible =
+    filter === "All work" ? work : work.filter((item) => item.type === filter);
   return (
-    <section className="space-y-6" aria-labelledby="production-showcase-title">
-      <div>
-        <p className="text-xs font-black uppercase tracking-[0.18em] text-[#c7a65a]">Production website</p>
-        <h2 id="production-showcase-title" className="mt-2 font-heading text-xl font-bold text-slate-50 sm:text-2xl">Live responsive showcase</h2>
-        <p className="mt-2 max-w-3xl leading-relaxed text-blue-50/82">Current production captures show the delivered experience across desktop and mobile.</p>
+    <main id="main" tabIndex="-1" className="wrap archive section">
+      <SectionLabel number="01">The project archive</SectionLabel>
+      <h1>
+        Ideas, made real<span>.</span>
+      </h1>
+      <p className="page-intro">
+        Websites, useful applications and experiments in security and AI. A
+        closer look at what I build and how I think.
+      </p>
+      <div className="filters" role="group" aria-label="Filter projects">
+        {["All work", "Websites", "Applications", "Security & AI"].map(
+          (label) => (
+            <button
+              key={label}
+              aria-pressed={label === filter}
+              onClick={() => setFilter(label)}
+            >
+              {label}
+            </button>
+          ),
+        )}
       </div>
-
-      <div className="grid gap-3 md:grid-cols-[minmax(0,1fr)_minmax(15rem,0.42fr)]">
-        {views.map((view) => (
-          <figure key={view.key} className="overflow-hidden rounded-xl border border-[#2e5f93]/30 bg-[#020814]">
-            <figcaption className="flex items-center justify-between border-b border-[#2e5f93]/25 px-3 py-2">
-              <span className="text-xs font-black uppercase tracking-[0.16em] text-blue-100">{view.label}</span>
-              <a className="text-xs font-semibold text-[#c7a65a] hover:text-blue-100" href={view.src} target="_blank" rel="noreferrer">Open image ↗</a>
-            </figcaption>
-            <a href={view.src} target="_blank" rel="noreferrer" aria-label={`Open ${view.label.toLowerCase()} screenshot of ${title}`}>
-              <img
-                src={view.src}
-                alt={`${view.label} view of the live ${title} website`}
-                className={`w-full object-cover object-top ${view.className}`}
-                loading="lazy"
-              />
-            </a>
-          </figure>
+      <p className="result-count" role="status">
+        {visible.length} projects
+      </p>
+      <div className="archive-list">
+        {visible.map((item, i) => (
+          <article key={item.slug}>
+            <span className="archive-number">
+              {String(i + 1).padStart(2, "0")}
+            </span>
+            <div>
+              <p className="eyebrow">{item.type}</p>
+              <h2>
+                <Link to={pathFor(item)}>
+                  {titleFor(item)} <Arrow />
+                </Link>
+              </h2>
+              <p>{item.summary}</p>
+              <ul className="tags">
+                {item.techStack.slice(0, 4).map((tech) => (
+                  <li key={tech}>{tech}</li>
+                ))}
+              </ul>
+            </div>
+            {item.image && (
+              <Link
+                className="archive-image"
+                to={pathFor(item)}
+                aria-label={`View ${titleFor(item)}`}
+              >
+                <img
+                  src={item.image}
+                  alt={`${titleFor(item)} preview`}
+                  loading="lazy"
+                  width="320"
+                  height="200"
+                />
+              </Link>
+            )}
+          </article>
         ))}
       </div>
+    </main>
+  );
+}
+function About() {
+  return (
+    <main id="main" tabIndex="-1">
+      <section className="wrap section about-page">
+        <SectionLabel number="02">Behind the work</SectionLabel>
+        <h1>
+          Curiosity meets
+          <br />
+          <span>follow-through.</span>
+        </h1>
+        <div className="about-intro">
+          <p className="page-intro">
+            I’m Mobeen, a developer based in Australia. I enjoy joining the dots
+            between a clear interface, useful functionality and the engineering
+            that makes it dependable.
+          </p>
+          <img
+            src="/images/user.png"
+            alt="Mobeen Khan"
+            width="240"
+            height="280"
+          />
+        </div>
+        <div className="bio-grid">
+          <section>
+            <h2>Experience</h2>
+            {volunteer.map((item) => (
+              <article className="timeline-item" key={item.org}>
+                <p className="eyebrow">{item.dates}</p>
+                <h3>{item.org}</h3>
+                <p>Web Developer</p>
+                <p>{item.points[0]}</p>
+              </article>
+            ))}
+            <p>
+              Explore my{" "}
+              <Link className="inline-link" to="/projects">
+                website and application work
+              </Link>{" "}
+              for more recent builds.
+            </p>
+          </section>
+          <section>
+            <h2>Education & learning</h2>
+            {education.map((item) => (
+              <article className="timeline-item" key={item.title}>
+                <p className="eyebrow">{item.dates}</p>
+                <h3>{item.title}</h3>
+                <p>{item.place}</p>
+                {item.detail && <p>{item.detail}</p>}
+              </article>
+            ))}
+            {certifications.map((item) => (
+              <p key={item.title}>
+                {item.title} · {item.issuer}
+              </p>
+            ))}
+          </section>
+        </div>
+        <section className="toolkit">
+          <SectionLabel number="03">The toolkit</SectionLabel>
+          <h2>Tools follow the problem.</h2>
+          <p>The project case studies show where and why I use them.</p>
+          {[
+            ...skillCategories,
+            { name: "Security tools & practices", items: cybersecurityTools },
+          ].map((group) => (
+            <div key={group.name}>
+              <h3>{group.name}</h3>
+              <ul className="tags">
+                {group.items.map((item) => (
+                  <li key={item}>{item}</li>
+                ))}
+              </ul>
+            </div>
+          ))}
+        </section>
+      </section>
+      <Contact />
+    </main>
+  );
+}
+function Gallery({ item }) {
+  const [view, setView] = useState("desktop");
+  const comparison = item.slug === "golden-hour-pilates";
+  const responsive = ["jz-tech", "jzsm"].includes(item.slug);
+  if (!item.image) return null;
+  return (
+    <section className="case-gallery" aria-label="Project screenshots">
+      {(comparison || responsive) && (
+        <div className="gallery-controls">
+          <h2>{comparison ? "Before & after" : "A responsive experience"}</h2>
+          <div role="group" aria-label="Screenshot viewport">
+            {["desktop", "mobile"].map((value) => (
+              <button
+                key={value}
+                aria-pressed={view === value}
+                onClick={() => setView(value)}
+              >
+                {value}
+              </button>
+            ))}
+          </div>
+        </div>
+      )}
+      {comparison ? (
+        <div className={`comparison ${view}`}>
+          {["before", "after"].map((stage) => (
+            <figure key={stage}>
+              <figcaption>
+                {stage === "before"
+                  ? "Before · original website"
+                  : "After · redesign capture"}
+              </figcaption>
+              <a
+                href={`/images/golden-hour/${stage}-${view}-full.png`}
+                target="_blank"
+                rel="noreferrer"
+                aria-label={`Open full ${stage} ${view} screenshot`}
+              >
+                <img
+                  src={`/images/golden-hour/${stage}-${view}.png`}
+                  alt={`Golden Hour Pilates ${stage} redesign, ${view}`}
+                  loading="lazy"
+                />
+              </a>
+            </figure>
+          ))}
+        </div>
+      ) : (
+        <figure className={`case-image ${responsive ? view : ""}`}>
+          <img
+            src={
+              responsive
+                ? `/images/${item.slug === "jz-tech" ? "jztech" : "jzsm"}/${view}.png`
+                : item.image
+            }
+            alt={`${titleFor(item)} interface${responsive ? ` on ${view}` : ""}`}
+            loading="lazy"
+          />
+          <figcaption>Project interface capture</figcaption>
+        </figure>
+      )}
     </section>
   );
 }
-
-function ProjectDetailPage() {
+function ProjectDetail() {
   const { slug } = useParams();
-  const detail = projectDetailPages[slug];
-
-  if (!detail) {
-    return (
-      <>
-        <main className="mt-6 grid gap-4 sm:mt-8 sm:gap-6">
-          <Panel title="Project Not Found" icon={"⚠️"}>
-            <Link to="/projects" className="inline-flex items-center text-sm font-semibold text-[#c7a65a] hover:text-blue-100">
-              ← Back to Projects
-            </Link>
-            <p className="text-blue-50/82">The project detail page you requested does not exist.</p>
-          </Panel>
-        </main>
-      </>
-    );
-  }
-
-  const project = allWork.find((item) => item.title === detail.title);
-  const isClientExperience = clientExperienceTitles.has(detail.title);
-  const backPath = isClientExperience ? "/#experience" : "/projects";
-  const backLabel = isClientExperience ? "Experience" : "Projects";
-  const externalLinks = [
-    ...(project?.repo ? [{ label: "GitHub", href: project.repo }] : []),
-    ...(project?.website ? [{ label: "Live Site", href: project.website }] : []),
-  ];
-
+  const item = work.find((project) => project.slug === slug);
+  if (!item) return <NotFound />;
   return (
-    <>
-      <main className="mt-6 grid gap-4 sm:mt-8 sm:gap-6">
-        <Panel title={isClientExperience ? "Experience Detail" : "Project Detail"} icon={"🧾"}>
-          <Link to={backPath} className="inline-flex items-center text-sm font-semibold text-[#c7a65a] hover:text-blue-100">
-            ← Back to {backLabel}
-          </Link>
-
-          <h1 className="font-heading text-2xl font-bold tracking-[-0.035em] text-slate-50 sm:text-3xl">{detail.title}</h1>
-
-          {project?.techStack?.length > 0 ? (
-            <ul className="flex flex-wrap gap-1.5">
-              {project.techStack.map((tech) => (
-                <li key={`${detail.title}-${tech}`} className="rounded-full border border-[#2e5f93]/35 bg-[#2e5f93]/12 px-2.5 py-1 text-xs font-bold text-blue-100">
-                  {tech}
-                </li>
-              ))}
-            </ul>
-          ) : null}
-
-          {externalLinks.length > 0 ? (
-            <div className="flex flex-wrap gap-3">
-              {externalLinks.map((item) => (
-                <a key={`${detail.title}-${item.href}`} className="inline-flex items-center text-sm font-semibold text-[#c7a65a] hover:text-blue-100" href={item.href} target="_blank" rel="noreferrer">
-                  ↗ {item.label}
-                </a>
-              ))}
-            </div>
-          ) : null}
-
-          {detail.comparison ? <BeforeAfterComparison comparison={detail.comparison} /> : null}
-          {detail.showcase ? <ProductionShowcase title={detail.title} showcase={detail.showcase} /> : null}
-
-          <article className="animate-fadeUp rounded-[1.25rem] border border-[#2e5f93]/25 bg-[#071426]/72 p-4 shadow-card sm:p-6">
-            <ReactMarkdown
-              remarkPlugins={[remarkGfm]}
-              components={{
-                h2: ({ children }) => <h2 className="mt-6 font-heading text-xl font-bold text-slate-50 first:mt-0 sm:text-2xl">{children}</h2>,
-                h3: ({ children }) => <h3 className="mt-5 font-heading text-lg font-bold text-slate-50 sm:text-xl">{children}</h3>,
-                p: ({ children }) => <p className="mt-3 leading-relaxed text-blue-50/82">{children}</p>,
-                ul: ({ children }) => <ul className="mt-3 list-disc space-y-1.5 pl-5 text-blue-50/82 marker:text-[#c7a65a]/75">{children}</ul>,
-                ol: ({ children }) => <ol className="mt-3 list-decimal space-y-1.5 pl-5 text-blue-50/82">{children}</ol>,
-                li: ({ children }) => <li>{children}</li>,
-                a: ({ href, children }) => (
-                  <a className="font-semibold text-[#c7a65a] hover:text-blue-100" href={href} target="_blank" rel="noreferrer">
-                    {children}
-                  </a>
-                ),
-                code: ({ children }) => <code className="rounded bg-[#2e5f93]/18 px-1.5 py-0.5 text-sm text-[#c7a65a]">{children}</code>,
-                pre: ({ children }) => <pre className="mt-4 overflow-x-auto rounded-xl border border-[#2e5f93]/35 bg-[#020814] p-4 text-sm text-slate-100">{children}</pre>,
-                strong: ({ children }) => <strong className="font-semibold text-white">{children}</strong>,
-              }}
-            >
-              {detail.markdown}
+    <main id="main" tabIndex="-1" className="case-page wrap section">
+      <Link className="text-link" to="/projects">
+        ← All work
+      </Link>
+      <header className="case-header">
+        <p className="eyebrow">
+          {item.type} / {titleFor(item)}
+        </p>
+        <h1>{item.headline}</h1>
+        <p className="page-intro">{item.summary}</p>
+        <div className="case-facts">
+          <div>
+            <span className="eyebrow">My contribution</span>
+            <p>{item.role}</p>
+          </div>
+          <div>
+            <span className="eyebrow">Built with</span>
+            <p>{item.techStack.slice(0, 4).join(" · ")}</p>
+          </div>
+          <div className="case-links">
+            {item.website && (
+              <External href={item.website}>Visit website</External>
+            )}
+            {item.repo && <External href={item.repo}>View source</External>}
+            {item.repoNote && <p>{item.repoNote}</p>}
+          </div>
+        </div>
+      </header>
+      <Gallery key={item.slug} item={item} />
+      <div className="case-body">
+        <aside>
+          <p className="eyebrow">Behind the build</p>
+          <p>{titleFor(item)}</p>
+          <ul className="tags">
+            {item.techStack.map((tech) => (
+              <li key={tech}>{tech}</li>
+            ))}
+          </ul>
+        </aside>
+        <article className="prose">
+          {item.markdown ? (
+            <ReactMarkdown remarkPlugins={[remarkGfm]}>
+              {item.markdown}
             </ReactMarkdown>
-          </article>
-        </Panel>
-      </main>
-    </>
+          ) : (
+            <>
+              <h2>What I built</h2>
+              <ul>
+                {item.points.map((point) => (
+                  <li key={point}>{point}</li>
+                ))}
+              </ul>
+              {item.slug === "llm-security-tester" && (
+                <p>
+                  These results describe this small test set and model
+                  configuration, not a general guarantee of model safety.
+                </p>
+              )}
+            </>
+          )}
+        </article>
+      </div>
+      <div className="case-end">
+        <h2>Another angle on the work.</h2>
+        <Link className="button primary" to="/projects">
+          Explore all projects <Arrow />
+        </Link>
+      </div>
+    </main>
   );
 }
-
-function Footer() {
-  return <footer className="mt-8 border-t border-[#2e5f93]/30 pt-4 text-center text-sm text-blue-100/65">© {new Date().getFullYear()} Mobeen Khan</footer>;
+function NotFound() {
+  return (
+    <main id="main" tabIndex="-1" className="wrap section not-found">
+      <p className="eyebrow">404 / Not found</p>
+      <h1>
+        This page took
+        <br />a wrong turn.
+      </h1>
+      <Link className="button primary" to="/projects">
+        Back to the work <Arrow />
+      </Link>
+    </main>
+  );
 }
-
+function Footer() {
+  return (
+    <footer className="site-footer wrap">
+      <Link className="wordmark" to="/" aria-label="Mobeen Khan home">
+        mk<span>.</span>
+      </Link>
+      <p>© {new Date().getFullYear()} Mobeen Khan</p>
+      <div>
+        <External href="https://github.com/mobeen786822">GitHub</External>
+        <External href="https://www.linkedin.com/in/mobeen-khan-6b3340197">
+          LinkedIn
+        </External>
+        <a href={mail}>
+          Email <Arrow />
+        </a>
+      </div>
+    </footer>
+  );
+}
 export default function App() {
   return (
-    <div className="mx-auto w-full max-w-6xl px-3 py-6 sm:px-6 sm:py-10 lg:py-14">
-      <TopBar />
+    <>
+      <a
+        className="skip-link"
+        href="#main"
+        onClick={(event) => {
+          event.preventDefault();
+          document.getElementById("main")?.focus();
+        }}
+      >
+        Skip to content
+      </a>
+      <RouteEffects />
+      <Header />
       <Routes>
-        <Route path="/" element={<OverviewPage />} />
-        <Route path="/projects" element={<ProjectsPage />} />
-        <Route path="/projects/:slug" element={<ProjectDetailPage />} />
-        <Route path="/experience/:slug" element={<ProjectDetailPage />} />
+        <Route path="/" element={<Home />} />
+        <Route path="/projects" element={<Projects />} />
+        <Route path="/about" element={<About />} />
+        <Route path="/projects/:slug" element={<ProjectDetail />} />
+        <Route path="/experience/:slug" element={<ProjectDetail />} />
+        <Route path="*" element={<NotFound />} />
       </Routes>
       <Footer />
-    </div>
+    </>
   );
 }

@@ -19,3 +19,6 @@ temp/
 
 # Logs and generated local output
 *.tmp
+
+# Local redesign screenshots and browser verification
+artifacts/portfolio-redesign/
