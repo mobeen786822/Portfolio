@@ -1465,7 +1465,48 @@ button {
   }
 }
 
-@media (max-width: 360px) {
+.page-loading-intro {
+  position: fixed;
+  inset: 0;
+  z-index: 90;
+  display: grid;
+  place-items: center;
+  pointer-events: none;
+  background: var(--paper);
+  color: var(--ink);
+  visibility: hidden;
+}
+.page-loading-intro[hidden] { display: none; }
+.page-loading-wordmark {
+  font-family: "Space Grotesk", sans-serif;
+  font-size: clamp(80px, 14vw, 144px);
+  font-weight: 700;
+  letter-spacing: -0.1em;
+  line-height: 1.2;
+  padding-right: 0.1em;
+}
+.page-loading-dot {
+  display: inline-block;
+  color: var(--blue);
+  transform-origin: center bottom;
+}
+@media (prefers-reduced-motion: no-preference) {
+  .page-loading-intro {
+    animation: page-intro-dismiss 1500ms ease both;
+  }
+  .page-loading-dot {
+    animation: page-intro-dot 1100ms ease-in-out both;
+  }
+}
+@keyframes page-intro-dismiss {
+  0%, 75% { opacity: 1; visibility: visible; }
+  100% { opacity: 0; visibility: hidden; }
+}
+@keyframes page-intro-dot {
+  0%, 100% { transform: translateY(0); color: var(--blue); }
+  35% { transform: translateY(-0.18em); color: var(--ink); }
+  65% { transform: translateY(0); color: var(--blue); }
+  80% { transform: translateY(-0.07em); }
 }
 
 /* Expressive homepage pass: the existing palette, with the work in the lead. */

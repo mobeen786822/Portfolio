@@ -262,6 +262,29 @@ function RouteEffects() {
   }, [location.pathname, location.hash]);
   return null;
 }
+function PageLoadingAnimation() {
+  const { pathname } = useLocation();
+  const introRef = useRef(null);
+
+  useLayoutEffect(() => {
+    const intro = introRef.current;
+    // Let interaction dismiss the decorative intro immediately.
+    const dismiss = () => { intro.hidden = true; };
+    window.addEventListener("keydown", dismiss);
+    window.addEventListener("pointerdown", dismiss);
+    return () => {
+      window.removeEventListener("keydown", dismiss);
+      window.removeEventListener("pointerdown", dismiss);
+    };
+  }, [pathname]);
+
+  return (
+    <div key={pathname} ref={introRef} className="page-loading-intro" aria-hidden="true">
+      <span className="page-loading-wordmark">mk<span className="page-loading-dot">.</span></span>
+    </div>
+  );
+}
+
 function ScrollToTop() {
   const [visible, setVisible] = useState(false);
 
@@ -1091,6 +1114,7 @@ export default function App() {
         Skip to content
       </a>
       <RouteEffects />
+      <PageLoadingAnimation />
       <Header />
       <Routes>
         <Route path="/" element={<Home />} />
