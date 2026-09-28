@@ -429,12 +429,6 @@ button {
   object-fit: cover;
   object-position: top;
 }
-.visual-arrow {
-  position: absolute;
-  right: 20px;
-  top: 15px;
-  font-size: 24px;
-}
 .project-caption {
   display: flex;
   align-items: center;
@@ -454,9 +448,6 @@ button {
 }
 .project-caption h3 a:hover {
   color: var(--blue);
-}
-.caption-arrow {
-  font-size: 25px;
 }
 .project-summary {
   margin-top: 9px;
@@ -600,12 +591,6 @@ button {
 }
 .contact-heading h2 > span {
   color: var(--blue);
-}
-.contact-spark {
-  font-size: 155px;
-  line-height: 1;
-  color: var(--blue);
-  font-family: Arial, sans-serif;
 }
 .contact-options {
   display: grid;
@@ -1193,10 +1178,6 @@ button {
     font-size: 8px;
     left: 15px;
   }
-  .visual-arrow {
-    right: 15px;
-    font-size: 20px;
-  }
   .project-caption {
     margin-top: 17px;
   }
@@ -1253,9 +1234,6 @@ button {
   }
   .contact-heading h2 {
     font-size: 57px;
-  }
-  .contact-spark {
-    font-size: 100px;
   }
   .contact-options {
     gap: 30px;
@@ -1403,9 +1381,6 @@ button {
   .contact-heading h2 {
     font-size: 48px;
   }
-  .contact-spark {
-    font-size: 65px;
-  }
   .contact-options {
     grid-template-columns: 1fr;
     gap: 30px;
@@ -1491,9 +1466,6 @@ button {
 }
 
 @media (max-width: 360px) {
-  .contact-spark {
-    display: none;
-  }
 }
 
 /* Expressive homepage pass: the existing palette, with the work in the lead. */
@@ -2006,7 +1978,6 @@ button {
   :is(.button, .text-link, .nav-contact, .more-work a, .contact-options h3,
     .site-footer > div a, .case-links a) > span[aria-hidden="true"],
   .scroll-to-top svg,
-  .caption-arrow,
   .archive-list h2 a > span[aria-hidden="true"] {
     display: inline-block;
     transition: translate 220ms ease;
@@ -2019,7 +1990,6 @@ button {
     :is(.button, .text-link, .nav-contact, .more-work a,
       .site-footer > div a, .case-links a):hover > span[aria-hidden="true"],
     .contact-options a:hover h3 > span[aria-hidden="true"],
-    .project-caption:has(h3 a:hover) .caption-arrow,
     .archive-list h2 a:hover > span[aria-hidden="true"] {
       translate: 3px -3px;
     }

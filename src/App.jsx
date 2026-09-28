@@ -161,13 +161,10 @@ const titleFor = (item) =>
         ? "JZ Tech"
         : item.title;
 const pathFor = (item) => `/projects/${item.slug}`;
-function Arrow() {
-  return <span aria-hidden="true">↗</span>;
-}
 function External({ href, children, className = "" }) {
   return (
     <a href={href} className={className} target="_blank" rel="noreferrer">
-      {children} <Arrow />
+      {children}
     </a>
   );
 }
@@ -310,7 +307,7 @@ function Header() {
         <NavLink to="/projects">Work</NavLink>
         <NavLink to="/about">About</NavLink>
         <SectionLink className="nav-contact" to="/#contact">
-          Let’s talk <Arrow />
+          Let’s talk
         </SectionLink>
         <ThemeToggle />
       </nav>
@@ -348,9 +345,6 @@ function ProjectCard({ item }) {
             height="900"
           />
         </div>
-        <span className="visual-arrow">
-          <Arrow />
-        </span>
       </Link>
       <div className="project-caption">
         <div>
@@ -359,9 +353,6 @@ function ProjectCard({ item }) {
             <Link to={pathFor(item)}>{titleFor(item)}</Link>
           </h3>
         </div>
-        <span className="caption-arrow" aria-hidden="true">
-          ↗
-        </span>
       </div>
       <p className="project-summary">{item.summary}</p>
     </article>
@@ -517,7 +508,7 @@ function Home() {
                   Explore my work <span aria-hidden="true">↓</span>
                 </SectionLink>
                 <Link className="text-link" to="/about">
-                  A little about me <Arrow />
+                  A little about me
                 </Link>
               </div>
             </div>
@@ -548,7 +539,7 @@ function Home() {
             </h2>
           </div>
           <Link className="text-link" to="/projects">
-            All projects <Arrow />
+            All projects
           </Link>
         </div>
         <div className="project-grid">
@@ -559,7 +550,7 @@ function Home() {
         <div className="more-work">
           <p>More to explore</p>
           <Link to="/projects/job-application-assistant">
-            Job Application Assistant <Arrow />
+            Job Application Assistant
           </Link>
         </div>
       </section>
@@ -638,7 +629,7 @@ function Home() {
             projects, from booking pages to APIs.
           </p>
           <Link className="text-link" to="/about">
-            My background & experience <Arrow />
+            My background & experience
           </Link>
         </div>
       </section>
@@ -662,9 +653,6 @@ function Contact() {
             <br />
             in mind<span>?</span>
           </h2>
-          <span className="contact-spark" aria-hidden="true">
-            ↗
-          </span>
         </div>
         <div className="contact-options">
           <a
@@ -672,7 +660,7 @@ function Contact() {
           >
             <span className="eyebrow">For businesses & collaborators</span>
             <h3>
-              <span className="contact-title">Have a project in mind?</span> <Arrow />
+              <span className="contact-title">Have a project in mind?</span>
             </h3>
             <p>Tell me what you’re working on and where you need a hand.</p>
           </a>
@@ -681,7 +669,7 @@ function Contact() {
           >
             <span className="eyebrow">For teams & employers</span>
             <h3>
-              <span className="contact-title">Looking for a developer?</span> <Arrow />
+              <span className="contact-title">Looking for a developer?</span>
             </h3>
             <p>I’d love to hear about the role and what you’re building.</p>
           </a>
@@ -759,7 +747,7 @@ function Projects() {
               <p className="eyebrow">{item.type}</p>
               <h2>
                 <Link to={pathFor(item)}>
-                  {titleFor(item)} <Arrow />
+                  {titleFor(item)}
                 </Link>
               </h2>
               <p>{item.summary}</p>
@@ -1021,7 +1009,7 @@ function ProjectDetail() {
       <div className="case-end">
         <h2>Take a look at another project.</h2>
         <Link className="button primary" to="/projects">
-          Explore all projects <Arrow />
+          Explore all projects
         </Link>
       </div>
     </main>
@@ -1063,8 +1051,8 @@ function NotFound() {
       <p className="page-intro">This page may have moved, or the link isn’t quite right.
         Let’s get you back to somewhere useful.</p>
       <div className="error-actions">
-        <Link className="button primary" to="/">Back home <span aria-hidden="true">↗</span></Link>
-        <Link className="text-link" to="/projects">Explore work <Arrow /></Link>
+        <Link className="button primary" to="/">Back home</Link>
+        <Link className="text-link" to="/projects">Explore work</Link>
       </div>
     </main>
   );
@@ -1083,7 +1071,7 @@ function Footer() {
           LinkedIn
         </External>
         <a href={mail}>
-          Email <Arrow />
+          Email
         </a>
       </div>
     </footer>
