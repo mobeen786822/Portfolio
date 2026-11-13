@@ -827,6 +827,17 @@ function About() {
         <div className="bio-grid">
           <section>
             <h2>Experience</h2>
+            <article className="timeline-item">
+              <p className="eyebrow">17 November 2026 - current</p>
+              <h3>Aurora IT</h3>
+              <p>Technical Support Engineer (School Team) · Full-time</p>
+              <p>
+                Role covering first-line and, when
+                required, second-line hardware and software support. Role
+                responsibilities include tracking helpdesk requests, escalating
+                issues and documenting resolutions and support processes.
+              </p>
+            </article>
             {volunteer.map((item) => (
               <article className="timeline-item" key={item.org}>
                 <p className="eyebrow">{item.dates}</p>
