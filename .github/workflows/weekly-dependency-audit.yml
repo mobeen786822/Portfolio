@@ -1,0 +1,26 @@
+name: Weekly dependency audit
+'on':
+  schedule:
+  - cron: 23 3 * * 1
+  workflow_dispatch: {}
+permissions:
+  contents: read
+jobs:
+  npm-audit:
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    strategy:
+      fail-fast: false
+      matrix:
+        directory:
+        - .
+    defaults:
+      run:
+        working-directory: ${{ matrix.directory }}
+    steps:
+    - uses: actions/checkout@34e114876b0b11c390a56381ad16ebd13914f8d5
+    - uses: actions/setup-node@49933ea5288caeca8642d1e84afbd3f7d6820020
+      with:
+        node-version: '22'
+    - name: Audit locked dependencies without installing project code
+      run: npm audit --package-lock-only --ignore-scripts --audit-level=high
